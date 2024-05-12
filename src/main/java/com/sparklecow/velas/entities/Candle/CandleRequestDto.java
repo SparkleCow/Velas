@@ -3,7 +3,6 @@ package com.sparklecow.velas.entities.Candle;
 import com.sparklecow.velas.entities.Ingredient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
 import java.util.List;
 
 public record CandleRequestDto(
