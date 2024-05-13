@@ -1,6 +1,6 @@
-package com.sparklecow.velas.entities;
+package com.sparklecow.velas.entities.ingredient;
 
-import com.sparklecow.velas.entities.Candle.Candle;
+import com.sparklecow.velas.entities.candle.Candle;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,6 +18,7 @@ public class Ingredient {
     @ManyToOne
     @JoinColumn(name = "candle_id")
     private Candle candle;
+
     public Ingredient(Ingredients name, Double amount){
         this.name = name;
         this.amount = amount;

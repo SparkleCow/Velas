@@ -1,12 +1,7 @@
-package com.sparklecow.velas.entities.Candle;
+package com.sparklecow.velas.entities.candle;
 
-import com.sparklecow.velas.entities.Ingredient;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import com.sparklecow.velas.entities.ingredient.Ingredient;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public record CandleUpdateDto(String name,

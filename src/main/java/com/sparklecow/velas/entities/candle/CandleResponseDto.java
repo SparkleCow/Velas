@@ -1,4 +1,4 @@
-package com.sparklecow.velas.entities.Candle;
+package com.sparklecow.velas.entities.candle;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.sparklecow.velas.entities.Candle;
+package com.sparklecow.velas.entities.candle;
 
 public enum Category {
     AROMATIC,

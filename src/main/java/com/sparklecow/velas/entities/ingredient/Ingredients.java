@@ -1,4 +1,4 @@
-package com.sparklecow.velas.entities;
+package com.sparklecow.velas.entities.ingredient;
 
 public enum Ingredients {
     BEESWAX(10000.0),
