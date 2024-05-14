@@ -1,6 +1,5 @@
 package com.sparklecow.velas.entities.services;
 
-import java.util.Iterator;
 import java.util.List;
 
 public interface CrudService<C, R, U> {

@@ -2,12 +2,14 @@ package com.sparklecow.velas.entities.candle;
 
 import com.sparklecow.velas.entities.ingredient.Ingredient;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@AllArgsConstructor
 @Data
 @Builder
 @Table(name = "candles")
@@ -25,6 +27,8 @@ public class Candle {
     @OneToMany(mappedBy = "candle", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Ingredient> ingredients = new ArrayList<Ingredient>();
     private Double price = 0.0;
+
+    public Candle(){}
 
     private void updateStock(){
         this.stock--;

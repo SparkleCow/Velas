@@ -20,7 +20,8 @@ public class CandleMapper {
                 .stock(candleRequestDto.stock())
                 .category(candleRequestDto.category())
                 .build();
-        if(candleRequestDto.ingredients()!=null){
+        if (candleRequestDto.ingredients() != null && !candleRequestDto.ingredients().isEmpty()) {
+            System.out.println(candleRequestDto.ingredients());
             candle.setIngredients(candleRequestDto.ingredients());
             candle.setPrice(calculatePrice(candleRequestDto.ingredients()));
         }

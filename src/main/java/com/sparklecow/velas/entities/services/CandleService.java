@@ -1,6 +1,5 @@
 package com.sparklecow.velas.entities.services;
 
-import com.sparklecow.velas.entities.candle.Candle;
 import com.sparklecow.velas.entities.candle.CandleResponseDto;
 import com.sparklecow.velas.entities.candle.CandleRequestDto;
 import com.sparklecow.velas.entities.candle.CandleUpdateDto;

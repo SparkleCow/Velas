@@ -43,7 +43,7 @@ public class IngredientServiceImp implements IngredientService{
     }
 
     @Override
-    public IngredientResponseDto findByCandle(Double price, String name) {
+    public IngredientResponseDto findByCandle(Long id) {
         return null;
     }
 }

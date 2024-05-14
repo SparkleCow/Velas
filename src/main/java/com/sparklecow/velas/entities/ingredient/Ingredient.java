@@ -2,7 +2,9 @@ package com.sparklecow.velas.entities.ingredient;
 
 import com.sparklecow.velas.entities.candle.Candle;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
@@ -19,6 +21,8 @@ public class Ingredient {
     @JoinColumn(name = "candle_id")
     private Candle candle;
 
+    public Ingredient() {
+    }
     public Ingredient(Ingredients name, Double amount){
         this.name = name;
         this.amount = amount;
