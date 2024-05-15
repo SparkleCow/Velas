@@ -1,4 +1,4 @@
-package com.sparklecow.velas.services.utils;
+package com.sparklecow.velas.services.mappers;
 
 import com.sparklecow.velas.entities.candle.Candle;
 import com.sparklecow.velas.entities.candle.CandleRequestDto;

@@ -4,7 +4,7 @@ import com.sparklecow.velas.entities.candle.*;
 import com.sparklecow.velas.entities.ingredient.Ingredient;
 import com.sparklecow.velas.entities.ingredient.IngredientRequestDto;
 import com.sparklecow.velas.entities.ingredient.Ingredients;
-import com.sparklecow.velas.services.utils.CandleMapper;
+import com.sparklecow.velas.services.mappers.CandleMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

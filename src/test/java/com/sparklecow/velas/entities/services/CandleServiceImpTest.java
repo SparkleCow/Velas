@@ -6,7 +6,7 @@ import com.sparklecow.velas.entities.candle.CandleResponseDto;
 import com.sparklecow.velas.entities.candle.Category;
 import com.sparklecow.velas.repositories.CandleRepository;
 import com.sparklecow.velas.services.CandleServiceImp;
-import com.sparklecow.velas.services.utils.CandleMapper;
+import com.sparklecow.velas.services.mappers.CandleMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

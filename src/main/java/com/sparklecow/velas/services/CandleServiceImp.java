@@ -2,7 +2,7 @@ package com.sparklecow.velas.services;
 
 import com.sparklecow.velas.entities.candle.*;
 import com.sparklecow.velas.repositories.CandleRepository;
-import com.sparklecow.velas.services.utils.CandleMapper;
+import com.sparklecow.velas.services.mappers.CandleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
