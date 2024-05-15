@@ -1,4 +1,4 @@
-package com.sparklecow.velas.entities.services;
+package com.sparklecow.velas.services;
 
 import com.sparklecow.velas.entities.ingredient.IngredientRequestDto;
 import com.sparklecow.velas.entities.ingredient.IngredientResponseDto;

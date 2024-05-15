@@ -1,5 +1,6 @@
 package com.sparklecow.velas.entities.ingredient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sparklecow.velas.entities.candle.Candle;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,12 +18,14 @@ public class Ingredient {
     private Double amount;
     private Double pricePerUnit;
     private Double price;
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "candle_id")
     private Candle candle;
 
     public Ingredient() {
     }
+
     public Ingredient(Ingredients name, Double amount){
         this.name = name;
         this.amount = amount;
@@ -30,7 +33,18 @@ public class Ingredient {
         this.price = calculatePrice();
     }
 
-    private Double calculatePrice(){
+    public Double calculatePrice(){
         return amount * pricePerUnit;
+    }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "id=" + id +
+                ", name=" + name +
+                ", amount=" + amount +
+                ", pricePerUnit=" + pricePerUnit +
+                ", price=" + price +
+                '}';
     }
 }

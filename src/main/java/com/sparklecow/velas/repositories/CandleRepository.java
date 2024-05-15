@@ -1,4 +1,4 @@
-package com.sparklecow.velas.entities.repositories;
+package com.sparklecow.velas.repositories;
 
 import com.sparklecow.velas.entities.candle.Candle;
 import com.sparklecow.velas.entities.candle.Category;

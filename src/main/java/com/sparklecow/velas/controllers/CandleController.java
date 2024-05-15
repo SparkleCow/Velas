@@ -4,7 +4,7 @@ import com.sparklecow.velas.entities.candle.CandleResponseDto;
 import com.sparklecow.velas.entities.candle.CandleUpdateDto;
 import com.sparklecow.velas.entities.candle.Category;
 import com.sparklecow.velas.entities.candle.CandleRequestDto;
-import com.sparklecow.velas.entities.services.CandleService;
+import com.sparklecow.velas.services.CandleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

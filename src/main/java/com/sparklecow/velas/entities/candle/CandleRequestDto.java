@@ -1,6 +1,6 @@
 package com.sparklecow.velas.entities.candle;
 
-import com.sparklecow.velas.entities.ingredient.Ingredient;
+import com.sparklecow.velas.entities.ingredient.IngredientRequestDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.util.List;
@@ -18,6 +18,6 @@ public record CandleRequestDto(
         Category category,
         @NotNull
         List<String> images,
-        List<Ingredient> ingredients
+        List<IngredientRequestDto> ingredients
 ) {
 }

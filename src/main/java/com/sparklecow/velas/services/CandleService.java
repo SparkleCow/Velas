@@ -1,4 +1,4 @@
-package com.sparklecow.velas.entities.services;
+package com.sparklecow.velas.services;
 
 import com.sparklecow.velas.entities.candle.CandleResponseDto;
 import com.sparklecow.velas.entities.candle.CandleRequestDto;

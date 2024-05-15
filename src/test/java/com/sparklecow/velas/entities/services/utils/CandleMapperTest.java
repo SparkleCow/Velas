@@ -2,7 +2,9 @@ package com.sparklecow.velas.entities.services.utils;
 
 import com.sparklecow.velas.entities.candle.*;
 import com.sparklecow.velas.entities.ingredient.Ingredient;
+import com.sparklecow.velas.entities.ingredient.IngredientRequestDto;
 import com.sparklecow.velas.entities.ingredient.Ingredients;
+import com.sparklecow.velas.services.utils.CandleMapper;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -90,7 +92,7 @@ class CandleMapperTest {
                 null,
                 null,
                 null,
-                List.of(new Ingredient(Ingredients.BEESWAX, 1.0), new Ingredient(Ingredients.WICK, 2.0)));
+                List.of(new IngredientRequestDto(Ingredients.BEESWAX, 1.0), new IngredientRequestDto(Ingredients.WICK, 2.0)));
 
         //when
         Candle candleAfterUpdate = candleMapper.updateCandle(candleUpdate,candle);

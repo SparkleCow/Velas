@@ -25,7 +25,7 @@ public class Candle {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> images;
     @OneToMany(mappedBy = "candle", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Ingredient> ingredients = new ArrayList<Ingredient>();
+    private List<Ingredient> ingredients = new ArrayList<>();
     private Double price = 0.0;
 
     public Candle(){}

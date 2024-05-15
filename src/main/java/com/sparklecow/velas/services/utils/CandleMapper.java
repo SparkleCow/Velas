@@ -1,13 +1,16 @@
-package com.sparklecow.velas.entities.services.utils;
+package com.sparklecow.velas.services.utils;
 
 import com.sparklecow.velas.entities.candle.Candle;
 import com.sparklecow.velas.entities.candle.CandleRequestDto;
 import com.sparklecow.velas.entities.candle.CandleResponseDto;
 import com.sparklecow.velas.entities.candle.CandleUpdateDto;
 import com.sparklecow.velas.entities.ingredient.Ingredient;
+import com.sparklecow.velas.entities.ingredient.IngredientRequestDto;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CandleMapper {
@@ -21,9 +24,10 @@ public class CandleMapper {
                 .category(candleRequestDto.category())
                 .build();
         if (candleRequestDto.ingredients() != null && !candleRequestDto.ingredients().isEmpty()) {
-            System.out.println(candleRequestDto.ingredients());
-            candle.setIngredients(candleRequestDto.ingredients());
-            candle.setPrice(calculatePrice(candleRequestDto.ingredients()));
+            List<Ingredient> ingredients = candleRequestDto.ingredients().stream().map(x -> new Ingredient(x.name(), x.amount())).toList();
+            ingredients.forEach(x -> x.setCandle(candle));
+            candle.setIngredients(ingredients);
+            candle.setPrice(calculatePrice(ingredients));
         }
         return candle;
     }
@@ -46,9 +50,26 @@ public class CandleMapper {
             candle.setImages(candleUpdateDto.images());
         }if(candleUpdateDto.category()!=null){
             candle.setCategory(candleUpdateDto.category());
-        }if(candleUpdateDto.ingredients()!=null){
-            candle.setIngredients(candleUpdateDto.ingredients());
-            candle.setPrice(calculatePrice(candleUpdateDto.ingredients()));
+        }if (candleUpdateDto.ingredients() != null) {
+            List<Ingredient> updatedIngredients = new ArrayList<>();
+            for (IngredientRequestDto dto : candleUpdateDto.ingredients()) {
+                Optional<Ingredient> existingIngredientOptional = candle.getIngredients().stream()
+                        .filter(existingIngredient -> existingIngredient.getName().equals(dto.name()))
+                        .findFirst();
+                if (existingIngredientOptional.isPresent()) {
+                    Ingredient existingIngredient = existingIngredientOptional.get();
+                    existingIngredient.setAmount(dto.amount());
+                    existingIngredient.setPrice(existingIngredient.calculatePrice());
+                    updatedIngredients.add(existingIngredient);
+                } else {
+                    Ingredient newIngredient = new Ingredient(dto.name(), dto.amount());
+                    newIngredient.setCandle(candle);
+                    updatedIngredients.add(newIngredient);
+                }
+            }
+            candle.setIngredients(updatedIngredients);
+            System.out.println(candle.getIngredients());
+            candle.setPrice(calculatePrice(updatedIngredients));
         }
         return candle;
     }

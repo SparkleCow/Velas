@@ -1,8 +1,8 @@
-package com.sparklecow.velas.entities.services;
+package com.sparklecow.velas.services;
 
 import com.sparklecow.velas.entities.candle.*;
-import com.sparklecow.velas.entities.repositories.CandleRepository;
-import com.sparklecow.velas.entities.services.utils.CandleMapper;
+import com.sparklecow.velas.repositories.CandleRepository;
+import com.sparklecow.velas.services.utils.CandleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -23,7 +23,12 @@ public class CandleServiceImp implements CandleService{
     @Override
     public CandleResponseDto create(CandleRequestDto candleRequestDto) {
         Candle candle = candleMapper.toCandle(candleRequestDto);
-        return candleMapper.toCandleDto(candleRepository.save(candle));
+        Candle candleAfter = candleRepository.save(candle);
+        return candleMapper.toCandleDto(candleAfter);
+    }
+
+    public Candle create2(Candle candle){
+        return candleRepository.save(candle);
     }
 
     @Override

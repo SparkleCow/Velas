@@ -1,4 +1,4 @@
-package com.sparklecow.velas.entities.services;
+package com.sparklecow.velas.services;
 
 import java.util.List;
 
