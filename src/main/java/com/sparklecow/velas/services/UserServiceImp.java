@@ -2,14 +2,23 @@ package com.sparklecow.velas.services;
 
 import com.sparklecow.velas.config.jwt.JwtUtils;
 import com.sparklecow.velas.entities.user.*;
+import com.sparklecow.velas.repositories.ActivateTokenRepository;
 import com.sparklecow.velas.repositories.UserRepository;
+import com.sparklecow.velas.services.email.EmailService;
+import com.sparklecow.velas.services.email.EmailTemplate;
 import com.sparklecow.velas.services.mappers.UserMapper;
+import jakarta.mail.MessagingException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -20,21 +29,44 @@ public class UserServiceImp implements UserService{
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
     private final EmailService emailService;
+    private final ActivateTokenRepository tokenRepository;
+    private final String activationUrl = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
     @Override
-    public void create(UserRegisterDto userRegisterDto) {
+    public void create(UserRegisterDto userRegisterDto) throws MessagingException {
         User user = userMapper.toUser(userRegisterDto);
         user.setRoles(List.of(Role.USER));
         sendValidationEmail(user);
     }
 
-    public void sentValidationEmail(User user) {
+    public void sendValidationEmail(User user) throws MessagingException {
         String token = generateAndSaveToken(user);
-        emailService.sendEmail(user.getEmail(), user.getFullName(), EmailTemplate.ACTIVATE_ACCOUNT,
+        emailService.sendEmail(user.getEmail(), user.getUsername(), EmailTemplate.ACTIVATE_ACCOUNT,
                 activationUrl, token, "Activate account");
     }
 
     private String generateAndSaveToken(User user) {
+        String generatedToken = generateToken(6);
+        ActivateToken token = ActivateToken.builder()
+                .token(generatedToken)
+                .createdAt(LocalDateTime.now())
+                .expiredAt(LocalDateTime.now().plusMinutes(15))
+                .user(user)
+                .build();
+        tokenRepository.save(token);
+        return generatedToken;
+    }
+
+    public String generateToken(int length) {
+        String token = "1234567890";
+        SecureRandom random = new SecureRandom();
+        StringBuilder tokenSb = new StringBuilder();
+        int indexRandom;
+        for(int i=0;i<length;i++){
+            indexRandom = random.nextInt(token.length());
+            tokenSb.append(token.charAt(indexRandom));
+        }
+        return tokenSb.toString();
     }
 
     @Override
@@ -45,6 +77,20 @@ public class UserServiceImp implements UserService{
         User user = userRepository.findByUsername(userLoginDto.username())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return new ResponseAuthDto(jwtUtils.generateToken(user));
+    }
+
+    @Transactional
+    public void activateAccount(String token) throws MessagingException {
+        ActivateToken tokenResult = tokenRepository.findByToken(token).orElseThrow(RuntimeException::new);
+        if(LocalDateTime.now().isAfter(tokenResult.getExpiredAt())){
+            sendValidationEmail(tokenResult.getUser());
+            throw new RuntimeException("Token expired");
+        }
+        User user = tokenResult.getUser();
+        user.setEnabled(true);
+        userRepository.save(user);
+        tokenResult.setValidatedAt(LocalDateTime.now());
+        tokenRepository.save(tokenResult);
     }
 
     @Override

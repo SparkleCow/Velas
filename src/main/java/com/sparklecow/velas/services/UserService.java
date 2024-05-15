@@ -1,12 +1,13 @@
 package com.sparklecow.velas.services;
 
 import com.sparklecow.velas.entities.user.*;
+import jakarta.mail.MessagingException;
 
 import java.util.List;
 
 public interface UserService{
 
-    public void create(UserRegisterDto userRegisterDto);
+    public void create(UserRegisterDto userRegisterDto) throws MessagingException;
     public List<User> findAll();
     public User findById(Long id);
     public User update(UserUpdateDto userUpdateDto, Long id);

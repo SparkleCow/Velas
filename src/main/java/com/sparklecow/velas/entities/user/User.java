@@ -30,6 +30,7 @@ public class User implements UserDetails {
     private String email;
     @Column(nullable = false, length = 100)
     private String password;
+    private boolean enabled = false;
     private List<Role> roles;
 
     public User() {
@@ -67,6 +68,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return enabled;
     }
 }
