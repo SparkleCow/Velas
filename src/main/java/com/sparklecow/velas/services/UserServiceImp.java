@@ -10,15 +10,14 @@ import com.sparklecow.velas.services.mappers.UserMapper;
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +29,8 @@ public class UserServiceImp implements UserService{
     private final JwtUtils jwtUtils;
     private final EmailService emailService;
     private final ActivateTokenRepository tokenRepository;
-    private final String activationUrl = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+    @Value("${application.mailing.frontend.activation-url}")
+    private String activationUrl;
 
     @Override
     public void create(UserRegisterDto userRegisterDto) throws MessagingException {

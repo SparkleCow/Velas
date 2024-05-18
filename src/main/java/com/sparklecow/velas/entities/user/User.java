@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,9 +32,19 @@ public class User implements UserDetails {
     @Column(nullable = false, length = 100)
     private String password;
     private boolean enabled = false;
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
     public User() {
+    }
+
+    public User(Long id, String firstName, String lastName, String username, String email, String password, List<Role> roles) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
     }
 
     @Override

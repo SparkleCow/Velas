@@ -3,21 +3,25 @@ package com.sparklecow.velas.services.mappers;
 import com.sparklecow.velas.entities.user.User;
 import com.sparklecow.velas.entities.user.UserRegisterDto;
 import com.sparklecow.velas.entities.user.UserUpdateDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class UserMapper {
 
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     public User toUser(UserRegisterDto userRegisterDto){
         return new User(
                 null,
                 userRegisterDto.firstName(),
                 userRegisterDto.lastName(),
                 userRegisterDto.username(),
-                passwordEncoder.encode(userRegisterDto.password()),
                 userRegisterDto.email(),
+                passwordEncoder.encode(userRegisterDto.password()),
                 List.of());
     }
 
