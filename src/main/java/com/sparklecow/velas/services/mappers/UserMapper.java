@@ -1,5 +1,6 @@
 package com.sparklecow.velas.services.mappers;
 
+import com.sparklecow.velas.entities.ShoppingCar;
 import com.sparklecow.velas.entities.user.User;
 import com.sparklecow.velas.entities.user.UserRegisterDto;
 import com.sparklecow.velas.entities.user.UserUpdateDto;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,7 +17,8 @@ public class UserMapper {
 
     private final PasswordEncoder passwordEncoder;
     public User toUser(UserRegisterDto userRegisterDto){
-        return new User(
+        ShoppingCar shoppingCar = new ShoppingCar(null, new ArrayList<>());
+        User user = new User(
                 null,
                 userRegisterDto.firstName(),
                 userRegisterDto.lastName(),
@@ -23,6 +26,9 @@ public class UserMapper {
                 userRegisterDto.email(),
                 passwordEncoder.encode(userRegisterDto.password()),
                 List.of());
+        shoppingCar.setUser(user);
+        user.setShoppingCar(shoppingCar);
+        return user;
     }
 
     public User updateUser(UserUpdateDto userUpdateDto, User user) {

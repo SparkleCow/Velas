@@ -1,5 +1,6 @@
 package com.sparklecow.velas.entities.user;
 
+import com.sparklecow.velas.entities.ShoppingCar;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 
 @Entity
 @Data
@@ -33,6 +33,8 @@ public class User implements UserDetails {
     private String password;
     private boolean enabled = false;
     private List<Role> roles = new ArrayList<>();
+    @OneToOne
+    private ShoppingCar shoppingCar;
 
     public User() {
     }
