@@ -21,6 +21,7 @@ public class Candle {
     private String description;
     private String principalImage;
     private Integer stock;
+    @Enumerated(EnumType.STRING)
     private Category category;
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> images;

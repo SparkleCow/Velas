@@ -42,4 +42,15 @@ public class ShoppingCar {
     public void calculateTotalPrice(){
         candles.forEach(candle -> this.totalPrice += candle.getPrice());
     }
+
+    public void removeAll(){
+        this.candles.clear();
+        this.totalPrice = 0.0;
+    }
+
+    public void buyAll(){
+        //TODO Implementar servicio de compra
+        this.candles.clear();
+        this.totalPrice = 0.0;
+    }
 }
