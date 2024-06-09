@@ -29,9 +29,9 @@ public class JwtUtils {
     }
     public String generateToken(UserDetails User, Map<String, Object> extraClaims){
         return Jwts.builder()
+                .setClaims(extraClaims)
                 .setSubject(User.getUsername())
                 .setIssuedAt(new Date())
-                .setClaims(extraClaims)
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(generateSignKey(), SignatureAlgorithm.HS256)
                 .compact();

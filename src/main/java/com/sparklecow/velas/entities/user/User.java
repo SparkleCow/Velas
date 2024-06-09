@@ -1,6 +1,6 @@
 package com.sparklecow.velas.entities.user;
 
-import com.sparklecow.velas.entities.ShoppingCar;
+import com.sparklecow.velas.entities.shoppingCar.ShoppingCar;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,9 +31,9 @@ public class User implements UserDetails {
     private String email;
     @Column(nullable = false, length = 100)
     private String password;
-    private boolean enabled = false;
+    private boolean enabled = true;
     private List<Role> roles = new ArrayList<>();
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private ShoppingCar shoppingCar;
 
     public User() {
@@ -83,4 +83,21 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return enabled;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", roles=" + roles +
+                ", shoppingCar=" + shoppingCar +
+                '}';
+    }
 }
+
+

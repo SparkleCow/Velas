@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +15,7 @@ import java.util.List;
 @Data
 @Builder
 @Table(name = "candles")
-public class Candle {
+public class Candle implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,7 +33,11 @@ public class Candle {
 
     public Candle(){}
 
-    private void updateStock(){
-        this.stock--;
+    public void removeStock(Integer quantity){
+        this.stock -= quantity;
+    }
+
+    public void addStock(Integer quantity){
+        this.stock += quantity;
     }
 }

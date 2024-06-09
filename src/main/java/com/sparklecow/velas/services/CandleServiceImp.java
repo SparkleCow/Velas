@@ -42,11 +42,20 @@ public class CandleServiceImp implements CandleService{
         return candleMapper.toCandleDto(candle);
     }
 
+    public Candle findCandleById(Long id){
+        return candleRepository.findById(id).orElseThrow(() -> new RuntimeException("Candle not found"));
+    }
+
     @Override
     public CandleResponseDto update(CandleUpdateDto candleUpdateDto, Long id) {
         Candle candle = candleRepository.findById(id).orElseThrow(() -> new RuntimeException("Candle not found"));
         candle = candleMapper.updateCandle(candleUpdateDto, candle);
         return candleMapper.toCandleDto(candleRepository.save(candle));
+    }
+
+    public void updateStock(Candle candle){
+        candle.removeStock();
+        candleRepository.save(candle);
     }
 
     @Override

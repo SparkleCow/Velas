@@ -1,6 +1,6 @@
 package com.sparklecow.velas.services.mappers;
 
-import com.sparklecow.velas.entities.ShoppingCar;
+import com.sparklecow.velas.entities.shoppingCar.ShoppingCar;
 import com.sparklecow.velas.entities.user.User;
 import com.sparklecow.velas.entities.user.UserRegisterDto;
 import com.sparklecow.velas.entities.user.UserUpdateDto;

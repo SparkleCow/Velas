@@ -1,12 +1,11 @@
 package com.sparklecow.velas.services;
 
-import com.sparklecow.velas.entities.candle.CandleResponseDto;
-import com.sparklecow.velas.entities.candle.CandleRequestDto;
-import com.sparklecow.velas.entities.candle.CandleUpdateDto;
-import com.sparklecow.velas.entities.candle.Category;
+import com.sparklecow.velas.entities.candle.*;
 
 import java.util.List;
 
 public interface CandleService extends CrudService<CandleRequestDto, CandleResponseDto, CandleUpdateDto>{
     public List<CandleResponseDto> findByCategory(Category category);
+    Candle findCandleById(Long id);
+    void updateStock(Candle candle);
 }

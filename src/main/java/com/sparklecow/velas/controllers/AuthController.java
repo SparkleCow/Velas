@@ -19,7 +19,6 @@ public class AuthController {
 
     private final UserServiceImp userService;
 
-
     @PostMapping()
     public ResponseEntity<?> register(@RequestBody UserRegisterDto userRegisterDto) throws MessagingException {
         userService.create(userRegisterDto);
