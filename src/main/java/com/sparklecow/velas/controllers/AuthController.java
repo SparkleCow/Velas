@@ -1,13 +1,13 @@
 package com.sparklecow.velas.controllers;
 
 import com.sparklecow.velas.entities.user.*;
-import com.sparklecow.velas.services.UserServiceImp;
+import com.sparklecow.velas.services.user.UserServiceImp;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -20,13 +20,13 @@ public class AuthController {
     private final UserServiceImp userService;
 
     @PostMapping()
-    public ResponseEntity<?> register(@RequestBody UserRegisterDto userRegisterDto) throws MessagingException {
+    public ResponseEntity<?> register(@RequestBody @Valid UserRegisterDto userRegisterDto) throws MessagingException {
         userService.create(userRegisterDto);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseAuthDto> authenticate(@RequestBody UserLoginDto userLoginDto){
+    public ResponseEntity<ResponseAuthDto> authenticate(@RequestBody @Valid UserLoginDto userLoginDto){
         return ResponseEntity.ok(userService.authenticate(userLoginDto));
     }
 

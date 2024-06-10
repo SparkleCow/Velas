@@ -31,7 +31,7 @@ public class User implements UserDetails {
     private String email;
     @Column(nullable = false, length = 100)
     private String password;
-    private boolean enabled = true;
+    private boolean enabled = false;
     private List<Role> roles = new ArrayList<>();
     @OneToOne(cascade = CascadeType.ALL)
     private ShoppingCar shoppingCar;

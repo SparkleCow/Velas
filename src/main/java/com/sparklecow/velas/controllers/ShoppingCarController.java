@@ -2,7 +2,8 @@ package com.sparklecow.velas.controllers;
 
 import com.sparklecow.velas.config.jwt.JwtUtils;
 import com.sparklecow.velas.entities.user.User;
-import com.sparklecow.velas.services.ShoppingCarService;
+import com.sparklecow.velas.exceptions.NotFoundException;
+import com.sparklecow.velas.services.shoppingCar.ShoppingCarService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class ShoppingCarController {
     @PostMapping("/{id}")
     public ResponseEntity<?> addProduct(@RequestHeader("Authorization") String authorizationHeader,
                                         @PathVariable Long id,
-                                        @RequestParam(required = false) Long amount) {
+                                        @RequestParam(required = false) Long amount) throws NotFoundException {
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -73,7 +74,7 @@ public class ShoppingCarController {
 
     @DeleteMapping("/{id}/deleteProducts")
     public ResponseEntity<?> deleteProducts(@RequestHeader("Authorization") String authorizationHeader,
-                                           @PathVariable Long id){
+                                           @PathVariable Long id) throws NotFoundException {
         if(SecurityContextHolder.getContext().getAuthentication()==null){
             return ResponseEntity.badRequest().build();
         }

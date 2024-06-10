@@ -1,4 +1,4 @@
-package com.sparklecow.velas.services;
+package com.sparklecow.velas.services.user;
 
 import com.sparklecow.velas.config.jwt.JwtUtils;
 import com.sparklecow.velas.entities.user.*;
@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -21,7 +22,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImp implements UserService{
+public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -75,7 +76,7 @@ public class UserServiceImp implements UserService{
                 new UsernamePasswordAuthenticationToken(userLoginDto.username(), userLoginDto.password());
         authenticationManager.authenticate(userAuth);
         User user = userRepository.findByUsername(userLoginDto.username())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return new ResponseAuthDto(jwtUtils.generateToken(user));
     }
 

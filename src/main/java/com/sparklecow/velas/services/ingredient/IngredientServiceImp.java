@@ -1,12 +1,13 @@
-package com.sparklecow.velas.services;
+package com.sparklecow.velas.services.ingredient;
 
 import com.sparklecow.velas.entities.ingredient.IngredientRequestDto;
 import com.sparklecow.velas.entities.ingredient.IngredientResponseDto;
 import com.sparklecow.velas.entities.ingredient.IngredientUpdateDto;
+import com.sparklecow.velas.services.ingredient.IngredientService;
 
 import java.util.List;
 
-public class IngredientServiceImp implements IngredientService{
+public class IngredientServiceImp implements IngredientService {
     @Override
     public IngredientResponseDto create(IngredientRequestDto ingredientRequestDto) {
         return null;

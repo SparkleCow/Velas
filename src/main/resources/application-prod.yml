@@ -5,20 +5,18 @@ spring:
     password: Borman15
     driver-class-name: org.postgresql.Driver
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
     database: POSTGRESQL
   mail:
     host: smtp.gmail.com
     port: 587
     username: cjelcazador300@gmail.com
     password: zciamxtsgvjuegle
-
-
     properties:
       mail:
         smtp:
@@ -34,4 +32,3 @@ application:
   mailing:
     frontend:
       activation-url: http://localhost:4200/activate-account
-

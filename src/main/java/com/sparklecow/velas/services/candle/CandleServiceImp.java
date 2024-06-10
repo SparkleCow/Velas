@@ -1,6 +1,7 @@
-package com.sparklecow.velas.services;
+package com.sparklecow.velas.services.candle;
 
 import com.sparklecow.velas.entities.candle.*;
+import com.sparklecow.velas.exceptions.NotFoundException;
 import com.sparklecow.velas.repositories.CandleRepository;
 import com.sparklecow.velas.services.mappers.CandleMapper;
 import lombok.RequiredArgsConstructor;
@@ -9,8 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-//TODO Implementar manejo de excepciones
-public class CandleServiceImp implements CandleService{
+public class CandleServiceImp implements CandleService {
 
     private final CandleRepository candleRepository;
     private final CandleMapper candleMapper;
@@ -27,35 +27,32 @@ public class CandleServiceImp implements CandleService{
         return candleMapper.toCandleDto(candleAfter);
     }
 
-    public Candle create2(Candle candle){
-        return candleRepository.save(candle);
-    }
-
     @Override
     public List<CandleResponseDto> findAll() {
         return candleRepository.findAll().stream().map(candleMapper::toCandleDto).toList();
     }
 
     @Override
-    public CandleResponseDto findById(Long id) {
-        Candle candle = candleRepository.findById(id).orElseThrow(() -> new RuntimeException("Candle not found"));
+    public CandleResponseDto findById(Long id) throws NotFoundException{
+        Candle candle = candleRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found", Candle.class));
         return candleMapper.toCandleDto(candle);
     }
 
-    public Candle findCandleById(Long id){
-        return candleRepository.findById(id).orElseThrow(() -> new RuntimeException("Candle not found"));
+    @Override
+    public Candle findCandleById(Long id) throws NotFoundException {
+        return candleRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found", Candle.class));
     }
 
     @Override
-    public CandleResponseDto update(CandleUpdateDto candleUpdateDto, Long id) {
-        Candle candle = candleRepository.findById(id).orElseThrow(() -> new RuntimeException("Candle not found"));
+    public CandleResponseDto update(CandleUpdateDto candleUpdateDto, Long id) throws NotFoundException {
+        Candle candle = candleRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found", Candle.class));
         candle = candleMapper.updateCandle(candleUpdateDto, candle);
         return candleMapper.toCandleDto(candleRepository.save(candle));
     }
 
     @Override
-    public void deleteById(Long id) {
-        candleRepository.findById(id).orElseThrow(() -> new RuntimeException("Candle not found"));
+    public void deleteById(Long id) throws NotFoundException {
+        candleRepository.findById(id).orElseThrow(() ->new NotFoundException("Not found", Candle.class));
         candleRepository.deleteById(id);
     }
 }

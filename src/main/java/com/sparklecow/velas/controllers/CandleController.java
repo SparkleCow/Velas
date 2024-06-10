@@ -4,7 +4,9 @@ import com.sparklecow.velas.entities.candle.CandleResponseDto;
 import com.sparklecow.velas.entities.candle.CandleUpdateDto;
 import com.sparklecow.velas.entities.candle.Category;
 import com.sparklecow.velas.entities.candle.CandleRequestDto;
-import com.sparklecow.velas.services.CandleService;
+import com.sparklecow.velas.exceptions.NotFoundException;
+import com.sparklecow.velas.services.candle.CandleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +25,7 @@ public class CandleController {
     private final CandleService candleService;
 
     @PostMapping()
-    public ResponseEntity<CandleResponseDto> createCandle(@RequestBody CandleRequestDto candleRequestDto){
+    public ResponseEntity<CandleResponseDto> createCandle(@RequestBody @Valid CandleRequestDto candleRequestDto){
         CandleResponseDto candleResponseDto = candleService.create(candleRequestDto);
         URI uri = URI.create("/api/v1/candle/"+candleResponseDto.id());
         return ResponseEntity.created(uri).body(candleResponseDto);
@@ -35,7 +37,7 @@ public class CandleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CandleResponseDto> findById(@PathVariable Long id){
+    public ResponseEntity<CandleResponseDto> findById(@PathVariable Long id) throws NotFoundException{
         return ResponseEntity.ok(candleService.findById(id));
     }
 
@@ -45,12 +47,13 @@ public class CandleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CandleResponseDto> update(@PathVariable Long id, @RequestBody CandleUpdateDto candleUpdateDto){
+    public ResponseEntity<CandleResponseDto> update(@PathVariable Long id,
+                                                    @RequestBody CandleUpdateDto candleUpdateDto) throws NotFoundException {
         return ResponseEntity.ok(candleService.update(candleUpdateDto,id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public ResponseEntity<?> delete(@PathVariable Long id) throws NotFoundException {
         candleService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

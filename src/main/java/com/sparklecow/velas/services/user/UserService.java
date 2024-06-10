@@ -1,4 +1,4 @@
-package com.sparklecow.velas.services;
+package com.sparklecow.velas.services.user;
 
 import com.sparklecow.velas.entities.user.*;
 import jakarta.mail.MessagingException;
