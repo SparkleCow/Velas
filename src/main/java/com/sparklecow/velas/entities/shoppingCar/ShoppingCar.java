@@ -1,7 +1,6 @@
 package com.sparklecow.velas.entities.shoppingCar;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sparklecow.velas.entities.candle.Candle;
 import com.sparklecow.velas.entities.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,18 +31,10 @@ public class ShoppingCar {
         this.candles = candles;
     }
 
-    public void removeProduct(CarItem candle){
-        this.candles.remove(candle);
-        calculateTotalPrice();
-    }
-
     public void calculateTotalPrice(){
-        candles.forEach(candle -> this.totalPrice += candle.getCandle().getPrice());
-    }
-
-    public void removeAll(){
-        this.candles.clear();
         this.totalPrice = 0.0;
+        candles.forEach(carItem -> this.totalPrice +=
+                carItem.getCandle().getPrice()*carItem.getQuantity());
     }
 
     public void buyAll(){

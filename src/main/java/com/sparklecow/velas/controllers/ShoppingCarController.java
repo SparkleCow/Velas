@@ -86,9 +86,8 @@ public class ShoppingCarController {
         return ResponseEntity.ok("Candles deleted");
     }
 
-    @DeleteMapping("/{id}/deleteAllProducts")
-    public ResponseEntity<?> deleteAllProducts(@RequestHeader("Authorization") String authorizationHeader,
-                                               @PathVariable Long id){
+    @DeleteMapping("/deleteAllProducts")
+    public ResponseEntity<?> deleteAllProducts(@RequestHeader("Authorization") String authorizationHeader){
         if(SecurityContextHolder.getContext().getAuthentication()==null){
             return ResponseEntity.badRequest().build();
         }
@@ -97,7 +96,7 @@ public class ShoppingCarController {
         if(!jwtUtils.validateToken(jwtToken, user)){
             return ResponseEntity.badRequest().build();
         }
-        shoppingCarService.removeAllProducts();
+        shoppingCarService.removeAllProducts(user.getShoppingCar());
         return ResponseEntity.ok("Candle deleted");
     }
 }

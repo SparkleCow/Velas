@@ -7,5 +7,5 @@ public interface ShoppingCarService{
     void addProducts(Long id, Long amount, ShoppingCar shoppingCar);
     void removeProduct(Long candleId, ShoppingCar shoppingCar);
     void removeProducts(Long candleId, ShoppingCar shoppingCar);
-    void removeAllProducts();
+    void removeAllProducts(ShoppingCar shoppingCar);
 }

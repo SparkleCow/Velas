@@ -29,12 +29,14 @@ public class ShoppingCarServiceImp implements ShoppingCarService{
 
         List<CarItem> items = shoppingCar.getCandles();
 
-        for (CarItem item : items) {
-            if (item.getCandle().getId().equals(candle.getId())) {
-                item.setQuantity(item.getQuantity() + 1);
+        for(int i=0; i<items.size();i++){
+            if (items.get(i).getCandle().getId().equals(candle.getId())) {
+                items.get(i).setQuantity(items.get(i).getQuantity() + 1);
                 candle.removeStock(1);
                 candleRepository.save(candle);
+                shoppingCar.setCandles(items);
                 shoppingCar.calculateTotalPrice();
+                shoppingCarRepository.save(shoppingCar);
                 return;
             }
         }
@@ -56,15 +58,18 @@ public class ShoppingCarServiceImp implements ShoppingCarService{
 
         List<CarItem> items = shoppingCar.getCandles();
 
-        for (CarItem item : items) {
-            if (item.getCandle().getId().equals(candle.getId())) {
-                item.setQuantity(item.getQuantity() + amount.intValue());
+        for(int i=0; i<items.size();i++){
+            if (items.get(i).getCandle().getId().equals(candle.getId())) {
+                items.get(i).setQuantity(items.get(i).getQuantity() + amount.intValue());
                 candle.removeStock(amount.intValue());
                 candleRepository.save(candle);
+                shoppingCar.setCandles(items);
                 shoppingCar.calculateTotalPrice();
+                shoppingCarRepository.save(shoppingCar);
                 return;
             }
         }
+
         items.add(new CarItem(candle, amount.intValue()));
         candle.removeStock(amount.intValue());
         candleRepository.save(candle);
@@ -75,19 +80,25 @@ public class ShoppingCarServiceImp implements ShoppingCarService{
 
     @Override
     public void removeProducts(Long candleId, ShoppingCar shoppingCar) {
-        CarItem carItem = shoppingCar.getCandles().stream()
-                .filter(x -> x.getCandle().getId().equals(candleId)).findFirst()
-                .orElseThrow(()->new RuntimeException("Candle not found"));
+        //Encuentra el CarItem correspondiente al candleId especificado
+        CarItem carItemToRemove = shoppingCar.getCandles().stream()
+                .filter(x -> x.getCandle().getId().equals(candleId))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Candle not found"));
 
-        int quantity = carItem.getQuantity();
-        Candle candle = carItem.getCandle();
-        candle.addStock(quantity);
-        candleRepository.save(candle);
+        //Incrementa el stock del candle correspondiente al CarItem que vamos a eliminar
+        Candle candleToRemove = carItemToRemove.getCandle();
+        int quantityToRemove = carItemToRemove.getQuantity();
+        candleToRemove.addStock(quantityToRemove);
+        candleRepository.save(candleToRemove);
 
-        //Filtra los elementos que no tienen el candleId especificado y los recolecta en una lista
-        List<CarItem> carItems = shoppingCar.getCandles().stream()
-                .filter(x -> !x.getCandle().getId().equals(candleId)).toList();
-        shoppingCar.setCandles(carItems);
+        //Filtra los elementos que no tienen el candleId especificado y los recolecta en una nueva lista mutable
+        List<CarItem> remainingCarItems = shoppingCar.getCandles().stream()
+                .filter(x -> !x.getCandle().getId().equals(candleId))
+                .collect(Collectors.toList());
+
+        shoppingCar.setCandles(remainingCarItems);
+        shoppingCar.calculateTotalPrice();
         shoppingCarRepository.save(shoppingCar);
     }
 
@@ -100,7 +111,7 @@ public class ShoppingCarServiceImp implements ShoppingCarService{
                         x.getCandle().addStock(1);
                         candleRepository.save(x.getCandle());
                         x.setQuantity(x.getQuantity() - 1);
-                    }}).toList();
+                    }}).collect(Collectors.toList());
 
         shoppingCar.setCandles(carItems);
         shoppingCar.calculateTotalPrice();
@@ -108,6 +119,13 @@ public class ShoppingCarServiceImp implements ShoppingCarService{
     }
 
     @Override
-    public void removeAllProducts() {
+    public void removeAllProducts(ShoppingCar shoppingCar) {
+        shoppingCar.getCandles().forEach(x -> {
+            x.getCandle().addStock(x.getQuantity());
+            candleRepository.save(x.getCandle());
+        });
+        shoppingCar.getCandles().clear();
+        shoppingCar.setTotalPrice(0.0);
+        shoppingCarRepository.save(shoppingCar);
     }
 }
