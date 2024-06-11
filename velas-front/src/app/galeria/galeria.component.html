@@ -1,0 +1,23 @@
+<header class="text-center my-5">
+    <h4>Productos</h4>
+</header>
+<div class="container galeria d-flex flex-direction-row flex-wrap justify-content-center">
+    @for(candle of candles; track candle.id){
+        <div class="info-vela text-center col-3 mx-5 d-flex flex-direction-column flex-wrap justify-content-center">
+            <div class="img-vela col-12 mb-4">
+                <img src="{{candle.principalImage}}" alt="">
+            </div>
+            <p>{{candle.name.toUpperCase()}}</p>
+            <br>
+            <p>${{candle.price}}</p>
+        </div>
+        <div class="info-vela text-center col-3 mx-5 d-flex flex-direction-column flex-wrap justify-content-center">
+            <div class="img-vela col-12 mb-4">
+                <img src="{{candle.principalImage}}" alt="">
+            </div>
+            <p>{{candle.name.toUpperCase()}}</p>
+            <br>
+            <p>${{candle.price}}</p>
+        </div>
+    }
+</div>

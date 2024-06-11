@@ -12,9 +12,9 @@ public record CandleRequestDto(
         String description,
         @NotNull @NotBlank
         String principalImage,
-        @NotNull @NotBlank
+        @NotNull
         Integer stock,
-        @NotNull @NotBlank
+        @NotNull
         Category category,
         @NotNull
         List<String> images,
