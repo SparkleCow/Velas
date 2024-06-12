@@ -1,0 +1,18 @@
+<div class="container candle-info d-flex flex-row my-4 px-4 align-items-center">
+    <div class="candle-img col-5">
+        <img class="img-fluid" src="{{candle.principalImage}}" alt="">
+    </div>
+    <div class="candle-description col-6 px-4 align-items-center">
+        <div class="col-12 text-center my-5">
+            <h4 class="candle-title">{{candle.name}}</h4>
+            <p>{{candle.description}}</p>
+            <p>Velas en stock: {{candle.stock}}</p>
+            <p>Precio: ${{candle.price}}</p>
+            <div class="opciones">
+                <button type="button" class="btn btn-success my-2 mx-2">Comprar ahora</button>
+                <button type="button" class="btn btn-success my-2 mx-2" (click)="carrito()">Agregar al carrito</button>
+                <button type="button" class="btn btn-success my-2 mx-2" (click)="regresar()">Regresar</button>
+            </div>
+        </div>
+    </div>
+</div>

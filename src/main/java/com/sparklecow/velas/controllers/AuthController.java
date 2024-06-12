@@ -2,10 +2,12 @@ package com.sparklecow.velas.controllers;
 
 import com.sparklecow.velas.entities.user.*;
 import com.sparklecow.velas.services.user.UserServiceImp;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -18,6 +20,16 @@ import java.util.List;
 public class AuthController {
 
     private final UserServiceImp userService;
+
+    @GetMapping("/validate")
+    public ResponseEntity<?> validateToken(@RequestHeader("Authorization") String token) throws ExpiredJwtException{
+        try {
+            boolean isValid = userService.validate(token);
+            return ResponseEntity.ok(isValid);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
+        }
+    }
 
     @PostMapping()
     public ResponseEntity<?> register(@RequestBody @Valid UserRegisterDto userRegisterDto) throws MessagingException {

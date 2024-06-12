@@ -4,7 +4,7 @@ export interface CandleResponseDto {
     description:    string;
     principalImage: string;
     stock:          number;
-    category:       Category;
+    category:       Category|null;
     images:         string[];
     price:          number;
 }

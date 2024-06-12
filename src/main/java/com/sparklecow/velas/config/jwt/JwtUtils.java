@@ -1,6 +1,8 @@
 package com.sparklecow.velas.config.jwt;
 
+import com.sparklecow.velas.entities.user.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -35,8 +37,17 @@ public class JwtUtils {
                 .compact();
     }
 
-    public boolean validateToken(String token, UserDetails User){
-        return extractUsername(token).equals(User.getUsername()) && !isTokenExpired(token);
+    public boolean validateToken(String token, User User) {
+        try {
+            Jwts.parserBuilder().setSigningKey(generateSignKey()).build().parseClaimsJws(token);
+            return extractUsername(token).equals(User.getUsername()) && !isTokenExpired(token);
+        } catch (ExpiredJwtException e) {
+            System.out.println("Token has expired: " + e.getMessage());
+            return false;
+        } catch (Exception e) {
+            System.out.println("Invalid token: " + e.getMessage());
+            return false;
+        }
     }
 
     public String extractUsername(String token){
@@ -51,18 +62,34 @@ public class JwtUtils {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
-        Claims claims = extractAllClaims(token);
-        return claimsResolver.apply(claims);
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        try {
+            Claims claims = extractAllClaims(token);
+            return claimsResolver.apply(claims);
+        } catch (ExpiredJwtException e) {
+            System.out.println("Token has expired: " + e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            System.out.println("Error extracting claim: " + e.getMessage());
+            throw e;
+        }
     }
 
-    public Claims extractAllClaims(String token){
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(generateSignKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+    public Claims extractAllClaims(String token) {
+        try {
+            return Jwts
+                    .parserBuilder()
+                    .setSigningKey(generateSignKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (ExpiredJwtException e) {
+            System.out.println("Token has expired: " + e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            System.out.println("Error parsing token: " + e.getMessage());
+            throw e;
+        }
     }
 
     private Key generateSignKey(){

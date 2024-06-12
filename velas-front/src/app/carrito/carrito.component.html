@@ -1,0 +1,28 @@
+<div class="carrito container d-flex flex-wrap">
+    <div class="title col-12 text-center">
+        <b>Carrito de compras</b>
+    </div>
+    <div class="table-products col-12">
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+                <th>Precio unitario</th>
+                <th>Acciones</th>
+            </tr>
+            @for(producto of carrito.candles; track producto.id){
+            <tr>
+                <td>{{producto.candle.name}}</td>
+                <td>{{producto.candle.description}}</td>
+                <td>{{producto.quantity}}</td>
+                <td>{{producto.candle.price}}</td>
+                <td><button>Agregar</button><button>Eliminar unidad</button><button>Eliminar producto</button></td>
+            </tr>
+            }
+        </table>
+    </div>
+    <div class="buttons col-12">
+
+    </div>
+</div>

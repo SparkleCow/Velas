@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientService } from '../http-client.service';
 import { CandleResponseDto } from '../models/candle';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-galeria',
@@ -10,7 +11,7 @@ import { CandleResponseDto } from '../models/candle';
 export class GaleriaComponent implements OnInit{
   candles:CandleResponseDto[] = [];
 
-  constructor(private httpClient: HttpClientService){}
+  constructor(private httpClient: HttpClientService, private router:Router){}
 
   ngOnInit(): void {
     this.httpClient.findAllCandle().subscribe(
@@ -22,5 +23,9 @@ export class GaleriaComponent implements OnInit{
         console.error('Error fetching candles:', error);
       }
     );
+  }
+
+  product(id:number){
+    this.router.navigate([`/product/${id}`])
   }
 }

@@ -6,7 +6,7 @@ import jakarta.mail.MessagingException;
 import java.util.List;
 
 public interface UserService{
-
+    public boolean validate(String token);
     public void create(UserRegisterDto userRegisterDto) throws MessagingException;
     public List<User> findAll();
     public User findById(Long id);

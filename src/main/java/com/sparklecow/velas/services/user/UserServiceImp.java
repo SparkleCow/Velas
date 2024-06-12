@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -30,8 +31,16 @@ public class UserServiceImp implements UserService {
     private final JwtUtils jwtUtils;
     private final EmailService emailService;
     private final ActivateTokenRepository tokenRepository;
+    private final UserDetailsService userDetailsService;
     @Value("${application.mailing.frontend.activation-url}")
     private String activationUrl;
+
+    @Override
+    public boolean validate(String token){
+        token = token.substring(7);
+        User user = (User) userDetailsService.loadUserByUsername(jwtUtils.extractUsername(token));
+        return jwtUtils.validateToken(token, user);
+    }
 
     @Override
     public void create(UserRegisterDto userRegisterDto) throws MessagingException {

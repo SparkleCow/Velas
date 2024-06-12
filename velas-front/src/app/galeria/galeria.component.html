@@ -5,7 +5,9 @@
     @for(candle of candles; track candle.id){
         <div class="info-vela text-center col-3 mx-5 d-flex flex-direction-column flex-wrap justify-content-center">
             <div class="img-vela col-12 mb-4">
-                <img src="{{candle.principalImage}}" alt="">
+                <a (click)="product(candle.id)">
+                    <img src="{{candle.principalImage}}" alt="">
+                </a>
             </div>
             <p>{{candle.name.toUpperCase()}}</p>
             <br>
@@ -13,7 +15,9 @@
         </div>
         <div class="info-vela text-center col-3 mx-5 d-flex flex-direction-column flex-wrap justify-content-center">
             <div class="img-vela col-12 mb-4">
-                <img src="{{candle.principalImage}}" alt="">
+                <a (click)="product(candle.id)">
+                    <img src="{{candle.principalImage}}" alt="">
+                </a>
             </div>
             <p>{{candle.name.toUpperCase()}}</p>
             <br>
