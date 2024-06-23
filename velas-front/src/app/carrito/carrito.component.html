@@ -1,11 +1,12 @@
 <div class="carrito container d-flex flex-wrap ">
     <div class="title col-12 text-center my-5">
-        <b>Carrito de compras</b>
+        <h4>Carrito de compras</h4>
     </div>
-    <div class="table-products col-12">
+    <div class="container table-products col-12">
         <table class="table">
-            <thead>
+            <thead class="py-5">
               <tr>
+                <th scope="col">Imagen</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Descripción</th>
                 <th scope="col">Cantidad</th>
@@ -16,8 +17,9 @@
             <tbody>
                 @for(producto of carrito.candles; track producto.id){
                     <tr>
+                        <td><img src="{{producto.candle.principalImage}}"></td>
                         <td>{{producto.candle.name}}</td>
-                        <td>{{producto.candle.description}}</td>
+                        <td class="description-column">{{producto.candle.description}}</td>
                         <td>{{producto.quantity}}</td>
                         <td>{{producto.candle.price}}</td>
                         <td>
@@ -25,7 +27,7 @@
                                 (click)="agregarProducto(producto.candle.id)">Agregar</button>
                             <button type="button" class="btn btn-success mx-2" 
                                 (click)="eliminarProducto(producto.candle.id)">Eliminar unidad</button>
-                            <button type="button" class="btn btn-success mx-2" 
+                            <button type="button" class="btn btn-danger mx-2" 
                                 (click)="eliminarProductos(producto.candle.id)">Eliminar producto</button>
                         </td>
                     </tr>
@@ -33,10 +35,14 @@
             </tbody>
           </table>
     </div>
-    <div class="info col-12">
-        <div class="total">
-            <p>Total: {{carrito.totalPrice}}</p>
+    <div class="info col-12 my-5">
+        <div class="total d-flex flex-row align-items-center">
+            <p class="mb-0">Total: {{carrito.totalPrice}}</p>
+            <div class="buttons">
+                <button type="button" class="btn btn-success mx-2">Comprar</button>
+                <button type="button" class="btn btn-success mx-2"
+                    (click)="home()">Regresar</button>
+            </div>
         </div>
-        <div class="buttons"></div>
     </div>
 </div>
