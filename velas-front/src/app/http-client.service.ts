@@ -26,7 +26,6 @@ export class HttpClientService {
   }
 
   public register(userRequestDto: UserRequestDto): Observable<void> {
-    console.log(userRequestDto)
     return this.http.post<void>(`${this.url}/auth`, userRequestDto);
   }
 
@@ -36,5 +35,21 @@ export class HttpClientService {
 
   public getCarrito(): Observable<Carrito>{
     return this.http.get<Carrito>(`${this.url}/car`);
+  }
+  
+  public addProduct(id:number): Observable<void>{
+    return this.http.post<void>(`${this.url}/car/${id}`, {})
+  }
+
+  public deleteProduct(id:number): Observable<void>{
+    return this.http.delete<void>(`${this.url}/car/${id}`)
+  }
+
+  public deleteProducts(id:number): Observable<void>{
+    return this.http.delete<void>(`${this.url}/car/${id}/deleteProducts`)
+  }
+
+  public deleteAllProducts(): Observable<void>{
+    return this.http.delete<void>(`${this.url}/car/deleteAllProducts`)
   }
 }

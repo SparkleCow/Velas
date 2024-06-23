@@ -35,10 +35,12 @@ export class ProductComponent implements OnInit{
   }
 
   carrito(){
-    if(!localStorage.getItem("token")){
-      this.router.navigate(["/login"])
-      return;
-    }
-    this.router.navigate(["/carrito"])
+    this.httpClient.addProduct(this.id).subscribe(
+      () => {
+        this.router.navigate(["/carrito"])
+      }, error => {
+        this.router.navigate(["/login"])
+      }
+    );
   }
 }

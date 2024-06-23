@@ -102,7 +102,17 @@ public class ShoppingCarServiceImp implements ShoppingCarService {
     }
 
     @Override
-    public void removeProduct(Long candleId, ShoppingCar shoppingCar) {
+    public void removeProduct(Long candleId, ShoppingCar shoppingCar) throws NotFoundException {
+        Candle candle = candleRepository.findById(candleId).
+                orElseThrow(()-> new NotFoundException("Not found", Candle.class));
+
+        List<CarItem> carExistItem = shoppingCar.getCandles().stream()
+                .filter(x -> x.getCandle().getId().equals(candleId)).toList();
+
+        if(carExistItem.size()<1){
+            throw new NotFoundException("Not found", Candle.class);
+        }
+
         // Modifica los elementos del carrito
         List<CarItem> carItems = shoppingCar.getCandles().stream()
                 .peek(x -> {

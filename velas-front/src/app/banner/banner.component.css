@@ -3,6 +3,12 @@
     height: 4vh;
 }
 
+
+h1{
+    font-family: "Playwrite NZ", cursive;
+    font-weight: bolder;
+}
+
 .encabezado{
     box-shadow: 0 0 20px #000000;
 }

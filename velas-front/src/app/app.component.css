@@ -12,6 +12,11 @@ header{
     border-bottom: 1px solid black;
 }
 
+.texto-encabezado h4{
+    font-family: "Playwrite NZ", cursive;
+    font-weight: lighter;
+}
+
 .input-container {
     position: relative;
     width: 300px;
@@ -67,3 +72,14 @@ header{
 .encabezado{
     box-shadow: 0 0 20px #000000;
 }
+
+footer{
+    background-color: #ffffff;
+    color: black;
+}
+
+.copyright a{
+    text-decoration: none;
+    color: #000000;
+}
+    

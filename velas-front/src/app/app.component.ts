@@ -29,16 +29,13 @@ export class AppComponent implements OnInit{
     this.httpClient.validateToken().subscribe(
       status => {
         if (status) {
-          console.log('Token válido:', status);
           this.router.navigate(['/carrito']);
         } else {
-          console.log('Token inválido:', status);
           this.router.navigate(['/login']);
         }
       },
       error => {
         console.error('Error validating token:', error);
-        alert('Token validation failed. Please log in again.');
         this.router.navigate(['/login']);
       }
     );

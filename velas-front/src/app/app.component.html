@@ -1,6 +1,6 @@
 <header class="container d-flex flex-direction-row justify-content-between align-items-center py-4">
   <div class="texto-encabezado col-4 d-flex align-items-center">
-    <h4>Iluminando tu vida desde 2024</h4>
+    <h4><b>Iluminando tu vida desde 2024</b></h4>
   </div>
   <div class="login col-4 d-flex flex-direction-row justify-content-around">
     <a (click)="login()">LOGIN</a>
@@ -14,7 +14,6 @@
   <div class="navegacion col-8 d-flex justify-content-between">
     <a (click)="carrito()">CARRITO</a>
     <a href="">HOME</a>
-    <a href="">PRODUCTOS</a>
     <a href="">CONTACTO</a>
     <a href="">PREGUNTAS FRECUENTES</a>
   </div>
@@ -24,3 +23,72 @@
     </div>
 </div>
 <router-outlet/>
+<div class="separador container-fluid">
+  <div class="col-12">
+  </div>
+</div>
+<footer class="text-center text-lg-start col-12">
+  <div class="container p-4 pb-0">
+    <section class="">
+      <div class="row">
+        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 mb-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">
+            Velas Candil
+          </h6>
+          <p>Cada cerillo, un recuerdo; cada vela, una historia.</p>
+        </div>
+        <hr class="w-100 clearfix d-md-none mb-3" />
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3 mb-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Integrantes</h6>
+          <a>Jonathan Ramos</a>
+        </div>
+        <hr class="w-100 clearfix d-md-none mb-3" />
+        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3 mb-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">
+            Links de utilidad
+          </h6>
+          <p>
+            <a>Contacto</a>
+          </p>
+          <p>
+            <a>Preguntas frecuentes</a>
+          </p>
+          <p>
+            <a>Loguearse</a>
+          </p>
+          <p>
+            <a>Registrarse</a>
+          </p>
+        </div>
+        <hr class="w-100 clearfix d-md-none mb-3" />
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3 mb-3">
+          <h6 class="text-uppercase mb-4 font-weight-bold">Contacto</h6>
+          <p><i class="fas fa-envelope mr-3"></i>sparklehorse&#64;outlook.es</p>
+          <p><i class="fas fa-phone mr-3"></i>Bogotá</p>
+          <p><i class="fas fa-print mr-3"></i>3228934612</p>
+        </div>
+      </div>
+    </section>
+    <hr class="my-3">
+    <section class="p-3 pt-0">
+      <div class="row d-flex align-items-center">
+        <div class="col-md-7 col-lg-8 text-center text-md-start">
+          <div class="p-3 copyright">
+            © 2024 Copyright:
+            <a href="https://www.instagram.com/sparklecow/">SparkleCow</a>
+          </div>
+        </div>
+        <div class="col-md-5 col-lg-4 ml-lg-0 text-center text-md-end">
+          <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
+              class="fab fa-facebook-f"></i></a>
+          <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
+              class="fab fa-twitter"></i></a>
+          <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
+              class="fab fa-google"></i></a>
+          <a class="btn btn-outline-light btn-floating m-1" class="text-white" role="button"><i
+              class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </section>
+  </div>
+</footer>

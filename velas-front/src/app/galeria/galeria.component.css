@@ -1,7 +1,9 @@
 .img-vela img{
-    width: 100%;
+    width: 90%;
     height: 250px;
     border-radius: 5%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    ;
 }
 
 .img-vela img:hover{
@@ -9,5 +11,12 @@
 }
 
 .info-vela p {
-    width: 100%; /* Asegura que cada <p> ocupe el ancho completo del contenedor */
+    width: 100%;
 }
+
+h4{
+    font-family: "Playwrite NZ", cursive;
+    font-style: normal;
+}
+
+    

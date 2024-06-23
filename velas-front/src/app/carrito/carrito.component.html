@@ -1,28 +1,42 @@
-<div class="carrito container d-flex flex-wrap">
-    <div class="title col-12 text-center">
+<div class="carrito container d-flex flex-wrap ">
+    <div class="title col-12 text-center my-5">
         <b>Carrito de compras</b>
     </div>
     <div class="table-products col-12">
-        <table>
-            <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Cantidad</th>
-                <th>Precio unitario</th>
-                <th>Acciones</th>
-            </tr>
-            @for(producto of carrito.candles; track producto.id){
-            <tr>
-                <td>{{producto.candle.name}}</td>
-                <td>{{producto.candle.description}}</td>
-                <td>{{producto.quantity}}</td>
-                <td>{{producto.candle.price}}</td>
-                <td><button>Agregar</button><button>Eliminar unidad</button><button>Eliminar producto</button></td>
-            </tr>
-            }
-        </table>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio unitario</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+                @for(producto of carrito.candles; track producto.id){
+                    <tr>
+                        <td>{{producto.candle.name}}</td>
+                        <td>{{producto.candle.description}}</td>
+                        <td>{{producto.quantity}}</td>
+                        <td>{{producto.candle.price}}</td>
+                        <td>
+                            <button type="button" class="btn btn-success mx-2" 
+                                (click)="agregarProducto(producto.candle.id)">Agregar</button>
+                            <button type="button" class="btn btn-success mx-2" 
+                                (click)="eliminarProducto(producto.candle.id)">Eliminar unidad</button>
+                            <button type="button" class="btn btn-success mx-2" 
+                                (click)="eliminarProductos(producto.candle.id)">Eliminar producto</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+          </table>
     </div>
-    <div class="buttons col-12">
-
+    <div class="info col-12">
+        <div class="total">
+            <p>Total: {{carrito.totalPrice}}</p>
+        </div>
+        <div class="buttons"></div>
     </div>
 </div>

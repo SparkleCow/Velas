@@ -1,7 +1,21 @@
 .candle-info{
-    min-height: 40vh;
+    min-height: 70vh;
 }
 
 .candle-title{
     margin-bottom: 50px;
+    font-family: "Playwrite NZ", cursive;
+    font-weight: normal;
+}
+
+.candle-img img {
+    width: 100%;
+    transition: opacity 0.3s ease;
+    border-radius: 3%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.6);
+    ;
+}
+
+.candle-img img:hover{
+    opacity: 0.8;
 }

@@ -1,12 +1,12 @@
 <header class="text-center my-5">
-    <h4>Productos</h4>
+    <h4>Nuestros productos</h4>
 </header>
 <div class="container galeria d-flex flex-direction-row flex-wrap justify-content-center">
     @for(candle of candles; track candle.id){
         <div class="info-vela text-center col-3 mx-5 d-flex flex-direction-column flex-wrap justify-content-center">
-            <div class="img-vela col-12 mb-4">
+            <div class="img-vela col-12 my-4">
                 <a (click)="product(candle.id)">
-                    <img src="{{candle.principalImage}}" alt="">
+                    <img src="{{candle.principalImage}}" alt="imagen del producto">
                 </a>
             </div>
             <p>{{candle.name.toUpperCase()}}</p>
@@ -14,9 +14,19 @@
             <p>${{candle.price}}</p>
         </div>
         <div class="info-vela text-center col-3 mx-5 d-flex flex-direction-column flex-wrap justify-content-center">
-            <div class="img-vela col-12 mb-4">
+            <div class="img-vela col-12 my-4">
                 <a (click)="product(candle.id)">
-                    <img src="{{candle.principalImage}}" alt="">
+                    <img src="{{candle.principalImage}}" alt="imagen del producto">
+                </a>
+            </div>
+            <p>{{candle.name.toUpperCase()}}</p>
+            <br>
+            <p>${{candle.price}}</p>
+        </div>
+        <div class="info-vela text-center col-3 mx-5 d-flex flex-direction-column flex-wrap justify-content-center">
+            <div class="img-vela col-12 my-4">
+                <a (click)="product(candle.id)">
+                    <img src="{{candle.principalImage}}" alt="imagen del producto">
                 </a>
             </div>
             <p>{{candle.name.toUpperCase()}}</p>

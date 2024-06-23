@@ -59,7 +59,7 @@ public class ShoppingCarController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@RequestHeader("Authorization") String authorizationHeader,
-                                           @PathVariable Long id){
+                                           @PathVariable Long id) throws NotFoundException {
         if(SecurityContextHolder.getContext().getAuthentication()==null){
             return ResponseEntity.badRequest().build();
         }
@@ -69,7 +69,7 @@ public class ShoppingCarController {
             return ResponseEntity.badRequest().build();
         }
         shoppingCarService.removeProduct(id, user.getShoppingCar());
-        return ResponseEntity.ok("Candle deleted");
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}/deleteProducts")
@@ -84,7 +84,7 @@ public class ShoppingCarController {
             return ResponseEntity.badRequest().build();
         }
         shoppingCarService.removeProducts(id, user.getShoppingCar());
-        return ResponseEntity.ok("Candles deleted");
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/deleteAllProducts")
@@ -98,6 +98,6 @@ public class ShoppingCarController {
             return ResponseEntity.badRequest().build();
         }
         shoppingCarService.removeAllProducts(user.getShoppingCar());
-        return ResponseEntity.ok("Candle deleted");
+        return ResponseEntity.ok().build();
     }
 }
