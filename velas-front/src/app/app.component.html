@@ -3,8 +3,13 @@
     <h4><b>Iluminando tu vida desde 2024</b></h4>
   </div>
   <div class="login col-4 d-flex flex-direction-row justify-content-around">
-    <a (click)="login()">LOGIN</a>
-    <a (click)="register()">REGISTRARSE</a>
+    @if(!auth){
+      <a (click)="login()">LOGIN</a>
+      <a (click)="register()">REGISTRARSE</a>
+    }@else{
+      <a>Bienvenido {{username}}</a>
+    }
+    
   </div>
 </header>
 <nav class="container navegacion-encabezado d-flex flex-direction-row align-items-center mt-3">

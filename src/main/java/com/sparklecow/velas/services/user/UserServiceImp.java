@@ -37,9 +37,12 @@ public class UserServiceImp implements UserService {
 
     @Override
     public boolean validate(String token){
-        token = token.substring(7);
         User user = (User) userDetailsService.loadUserByUsername(jwtUtils.extractUsername(token));
         return jwtUtils.validateToken(token, user);
+    }
+
+    public String extractUsername(String token){
+        return jwtUtils.extractUsername(token);
     }
 
     @Override

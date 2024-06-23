@@ -10,7 +10,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,10 +27,33 @@ public class AuthController {
     @GetMapping("/validate")
     public ResponseEntity<?> validateToken(@RequestHeader("Authorization") String token) throws ExpiredJwtException{
         try {
-            boolean isValid = userService.validate(token);
+            String tokenValue = token.startsWith("Bearer ") ? token.substring(7) : token;
+            boolean isValid = userService.validate(tokenValue);
             return ResponseEntity.ok(isValid);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
+        }
+    }
+
+    @GetMapping("/validate/username")
+    public ResponseEntity<Map<String, String>> validateTokenWithUsername(@RequestHeader("Authorization") String token) throws ExpiredJwtException {
+        try {
+            String tokenValue = token.startsWith("Bearer ") ? token.substring(7) : token;
+            boolean isValid = userService.validate(tokenValue);
+            System.out.println(isValid);
+            if (isValid) {
+                String username = userService.extractUsername(tokenValue);
+                Map<String, String> response = new HashMap<>();
+                response.put("username", username);
+                return ResponseEntity.ok(response);
+            }
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Invalid token");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+        } catch (Exception e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Invalid token");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
         }
     }
 

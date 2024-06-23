@@ -31,6 +31,7 @@ export class CarritoComponent implements OnInit {
         this.carrito = carrito;
       },
       error => {
+        console.log(error)
         this.login();
       }
     );

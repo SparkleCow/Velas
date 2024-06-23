@@ -9,12 +9,19 @@ import { HttpClientService } from './http-client.service';
 })
 export class AppComponent implements OnInit{
 
-  private token:string|null = ""
+  public auth:boolean = false;
+  public username:String = "";
   
   constructor(private router:Router, private httpClient:HttpClientService){}
 
   ngOnInit(): void {
-    this.token = localStorage.getItem("token");
+    this.httpClient.validateTokenWithUsername().subscribe(username => {
+      this.auth = true;
+      this.username = username.username;
+    }, error => {
+      console.log(error)
+      this.auth = false;
+    });
   }
 
   public login():void{

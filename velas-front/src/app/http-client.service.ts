@@ -33,6 +33,10 @@ export class HttpClientService {
     return this.http.get<boolean>(`${this.url}/auth/validate`);
   }
 
+  public validateTokenWithUsername(): Observable<any> {
+    return this.http.get<any>(`${this.url}/auth/validate/username`);
+  }
+
   public getCarrito(): Observable<Carrito>{
     return this.http.get<Carrito>(`${this.url}/car`);
   }
