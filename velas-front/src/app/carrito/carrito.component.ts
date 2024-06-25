@@ -85,7 +85,7 @@ export class CarritoComponent implements OnInit {
   }
 
   home(){
-    this.router.navigate(["/"]);
+    this.router.navigate([""]);
   }
 }
 

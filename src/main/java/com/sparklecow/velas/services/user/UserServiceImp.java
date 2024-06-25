@@ -2,11 +2,16 @@ package com.sparklecow.velas.services.user;
 
 import com.sparklecow.velas.config.jwt.JwtUtils;
 import com.sparklecow.velas.entities.user.*;
+import com.sparklecow.velas.exceptions.AdminRoleNotFoundException;
+import com.sparklecow.velas.exceptions.ExpiredTokenException;
+import com.sparklecow.velas.exceptions.InvalidTokenException;
+import com.sparklecow.velas.exceptions.ActivationTokenException;
 import com.sparklecow.velas.repositories.ActivateTokenRepository;
 import com.sparklecow.velas.repositories.UserRepository;
 import com.sparklecow.velas.services.email.EmailService;
 import com.sparklecow.velas.services.email.EmailTemplate;
 import com.sparklecow.velas.services.mappers.UserMapper;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -35,22 +40,33 @@ public class UserServiceImp implements UserService {
     @Value("${application.mailing.frontend.activation-url}")
     private String activationUrl;
 
-
     @Override
     public String extractUsername(String token){
         return jwtUtils.extractUsername(token);
     }
 
     @Override
-    public boolean validateAdminRole(String token){
+    public boolean validateAdminRole(String token) throws AdminRoleNotFoundException {
         User user = (User) userDetailsService.loadUserByUsername(jwtUtils.extractUsername(token));
-        return user.getRoles().stream().anyMatch(role -> role.name().equals("ADMIN"));
+        if(user.getRoles().stream().anyMatch(role -> role.name().equals("ADMIN"))){
+            return true;
+        }
+        throw new AdminRoleNotFoundException("Admin role not found");
     }
 
     @Override
-    public boolean validate(String token){
+    public boolean validate(String token) throws InvalidTokenException, ExpiredTokenException{
         User user = (User) userDetailsService.loadUserByUsername(jwtUtils.extractUsername(token));
-        return jwtUtils.validateToken(token, user);
+        System.out.println(user.toString());
+        try{
+            if (jwtUtils.validateToken(token, user)) {
+                return true;
+            } else {
+                throw new InvalidTokenException("Invalid token");
+            }
+        }catch (ExpiredJwtException e){
+            throw new ExpiredTokenException("Token expired");
+        }
     }
 
     @Override
@@ -101,11 +117,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Transactional
-    public void activateAccount(String token) throws MessagingException {
+    public void activateAccount(String token) throws MessagingException, ActivationTokenException {
         ActivateToken tokenResult = tokenRepository.findByToken(token).orElseThrow(RuntimeException::new);
         if(LocalDateTime.now().isAfter(tokenResult.getExpiredAt())){
             sendValidationEmail(tokenResult.getUser());
-            throw new RuntimeException("Token expired");
+            throw new ActivationTokenException("Activation token has expired or is invalid");
         }
         User user = tokenResult.getUser();
         user.setEnabled(true);

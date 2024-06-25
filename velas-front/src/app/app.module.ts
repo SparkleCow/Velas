@@ -14,6 +14,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CarritoComponent } from './carrito/carrito.component';
 import { CandleFormComponent } from './candle-form/candle-form.component';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
+import { InformationComponent } from './information/information.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ActivateAccountComponent } from './activate-account/activate-account.co
     ProductComponent,
     CarritoComponent,
     CandleFormComponent,
-    ActivateAccountComponent
+    ActivateAccountComponent,
+    InformationComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,10 @@
 package com.sparklecow.velas.controllers;
 
 import com.sparklecow.velas.entities.user.*;
+import com.sparklecow.velas.exceptions.AdminRoleNotFoundException;
+import com.sparklecow.velas.exceptions.ExpiredTokenException;
+import com.sparklecow.velas.exceptions.InvalidTokenException;
+import com.sparklecow.velas.exceptions.ActivationTokenException;
 import com.sparklecow.velas.services.user.UserServiceImp;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -56,19 +60,14 @@ public class AuthController {
     }
 
     @GetMapping("/validate/role")
-    public ResponseEntity<Void> validateTokenWithRole(@RequestHeader("Authorization") String token) throws ExpiredJwtException {
+    public ResponseEntity<Void> validateTokenWithRole(@RequestHeader("Authorization") String token) throws ExpiredJwtException,
+            AdminRoleNotFoundException,
+                                                                                                    ExpiredTokenException,
+                                                                                                    InvalidTokenException {
         String tokenValue = token.startsWith("Bearer ") ? token.substring(7) : token;
-        try {
-            if(userService.validate(tokenValue)){
-                if(userService.validateAdminRole(tokenValue)){
-                    return ResponseEntity.ok().build();
-                }
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-            }
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+        userService.validate(tokenValue);
+        userService.validateAdminRole(tokenValue);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping()
@@ -83,13 +82,12 @@ public class AuthController {
     }
 
     @PostMapping("/activate")
-    public ResponseEntity<?> activateAccount(@RequestParam String token) throws MessagingException {
+    public ResponseEntity<?> activateAccount(@RequestParam String token) throws MessagingException, ActivationTokenException {
         userService.activateAccount(token);
         return ResponseEntity.ok().build();
     }
 
-    //TODO Gestionar permisos solo a administradores
-
+    //Required admin, manager or worker rol
     @GetMapping()
     public ResponseEntity<List<User>> findAll(){
         return ResponseEntity.ok(userService.findAll());
@@ -100,7 +98,6 @@ public class AuthController {
         return ResponseEntity.ok(userService.findById(id));
     }
 
-    //Todo Gestionar permisos a usuarios y administradores
     @PutMapping("/{id}")
     public ResponseEntity<User> update(@PathVariable Long id, @RequestBody UserUpdateDto userUpdateDto){
         return ResponseEntity.ok(userService.update(userUpdateDto,id));

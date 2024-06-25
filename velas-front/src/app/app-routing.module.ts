@@ -7,6 +7,7 @@ import { ProductComponent } from './product/product.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { CandleFormComponent } from './candle-form/candle-form.component';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
+import { InformationComponent } from './information/information.component';
 
 const routes: Routes = [
   { path: '', component: BannerComponent },
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'product/:id', component: ProductComponent },
   { path: 'carrito', component: CarritoComponent},
   { path: 'candleForm' , component: CandleFormComponent},
-  { path: 'activateAccount', component: ActivateAccountComponent}
+  { path: 'activateAccount', component: ActivateAccountComponent},
+  { path: 'information', component: InformationComponent}
 ];
 
 @NgModule({

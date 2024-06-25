@@ -32,6 +32,7 @@ public class CandleController {
         return ResponseEntity.created(uri).body(candleResponseDto);
     }
 
+    //Open endpoints
     @GetMapping()
     public ResponseEntity<List<CandleResponseDto>> findAllCandles(){
         return ResponseEntity.ok(candleService.findAll());

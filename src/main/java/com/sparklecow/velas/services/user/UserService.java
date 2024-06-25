@@ -1,6 +1,7 @@
 package com.sparklecow.velas.services.user;
 
 import com.sparklecow.velas.entities.user.*;
+import com.sparklecow.velas.exceptions.AdminRoleNotFoundException;
 import jakarta.mail.MessagingException;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public interface UserService{
 
     public String extractUsername(String token);
-    public boolean validateAdminRole(String token);
+    public boolean validateAdminRole(String token) throws AdminRoleNotFoundException;
     public boolean validate(String token);
     public void create(UserRegisterDto userRegisterDto) throws MessagingException;
     public List<User> findAll();
