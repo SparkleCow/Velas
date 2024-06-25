@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CandleResponseDto } from './models/candle';
+import { CandleRequestDto, CandleResponseDto } from './models/candle';
 import { Token, UserLoginDto, UserRequestDto } from './models/user';
 import { Carrito } from './models/carrito';
 
@@ -13,6 +13,10 @@ export class HttpClientService {
 
   constructor(private http:HttpClient) { }
 
+  public createCandle(candle: CandleRequestDto):Observable<CandleResponseDto>{
+    return this.http.post<CandleResponseDto>(`${this.url}/candle`, candle);
+  }
+  
   public findAllCandle():Observable<CandleResponseDto[]>{
     return this.http.get<CandleResponseDto[]>(`${this.url}/candle`);
   }
@@ -21,6 +25,10 @@ export class HttpClientService {
     return this.http.get<CandleResponseDto>(`${this.url}/candle/${id}`)
   }
 
+  public activateAccount(token:string):Observable<void>{
+    return this.http.post<void>(`${this.url}/auth/activate?token=${token}`, null);
+  }
+  
   public login(userLoginDto: UserLoginDto): Observable<Token> {
     return this.http.post<Token>(`${this.url}/auth/login`, userLoginDto);
   }
@@ -35,6 +43,10 @@ export class HttpClientService {
 
   public validateTokenWithUsername(): Observable<any> {
     return this.http.get<any>(`${this.url}/auth/validate/username`);
+  }
+
+  public validateAdminRole(): Observable<void> {
+    return this.http.get<void>(`${this.url}/auth/validate/role`)
   }
 
   public getCarrito(): Observable<Carrito>{

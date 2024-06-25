@@ -6,6 +6,9 @@ import jakarta.mail.MessagingException;
 import java.util.List;
 
 public interface UserService{
+
+    public String extractUsername(String token);
+    public boolean validateAdminRole(String token);
     public boolean validate(String token);
     public void create(UserRegisterDto userRegisterDto) throws MessagingException;
     public List<User> findAll();

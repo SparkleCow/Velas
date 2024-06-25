@@ -1,0 +1,11 @@
+<div class="container my-5 py-5 d-flex flex-row flex-wrap justify-content-center">
+    <div class="col-10 d-flex justify-content-center align-items-center">
+        <form #myForm="ngForm" action="" class="form">
+            <label class="col-12 text-center my-5" for="code">Ingresa el código de activación</label>
+            <input class="col-12 mb-5" id="code" type="text" [(ngModel)]="code" [ngModelOptions]="{standalone: true}">
+        </form>
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+        <button (click)="activateAccount()" class="btn btn-success">Activar cuenta</button>
+    </div>
+</div>

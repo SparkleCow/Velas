@@ -1,0 +1,143 @@
+<div class="container my-4">
+  <div class="candle-form-title d-flex justify-content-center mb-4">
+    <h4>Ingresar vela</h4>
+  </div>
+  <form #myForm="ngForm" (ngSubmit)=enviar() class="row g-3">
+    <div class="contenido row g-3">
+      <div class="col-md-6">
+        <label for="name" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="name" [(ngModel)]="candle.name"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+      <div class="col-md-6">
+        <label for="imagen" class="form-label">Imagen</label>
+        <input type="text" class="form-control" id="imagen" placeholder="http://link-imagen.jpg"
+          [(ngModel)]="candle.principalImage" [ngModelOptions]="{standalone: true}">
+      </div>
+      <div class="col-12">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <input type="text" class="form-control" id="descripcion" [(ngModel)]="candle.description"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+      <div class="col-6">
+        <label for="stock" class="form-label">Stock</label>
+        <input type="number" class="form-control" id="stock" [(ngModel)]="candle.stock"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+      <div class="col-md-6">
+        <label for="categoria" class="form-label">Categoria</label>
+        <select id="categoria" class="form-select" [(ngModel)]="candle.category" [ngModelOptions]="{standalone: true}">
+          <option selected>AROMATIC</option>
+          <option selected>CANNABIS</option>
+          <option selected>HERBAL</option>
+          <option selected>OIL_LAMP</option>
+          <option selected>CLASSIC</option>
+        </select>
+      </div>
+      <div class="col-12">
+        <label for="images" class="form-label">Imagenes</label>
+        <input type="text" class="form-control" id="images" [(ngModel)]="imagen1"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+      <div class="col-12">
+        <label for="images" class="form-label">Imagenes</label>
+        <input type="text" class="form-control" id="images" [(ngModel)]="imagen2"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+      <div class="col-12">
+        <label for="images" class="form-label">Imagenes</label>
+        <input type="text" class="form-control" id="images" [(ngModel)]="imagen3"
+          [ngModelOptions]="{standalone: true}">
+      </div>
+      <div class="col-12 d-flex flex-row flex-wrap justify-content-between">
+        <div class="col-12">
+          <label for="ingrediente" class="form-label">Ingrediente</label>
+        </div>
+        <div class="col-4">
+          <input type="number" class="form-control" id="ingrediente" [(ngModel)]="ingredient1.amount"
+            [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-7">
+          <select id="ingrediente" class="form-select" [(ngModel)]="ingredient1.name"
+            [ngModelOptions]="{standalone: true}">
+            <option selected>SOY_WAX</option>
+            <option selected>PARAFFIN_WAX</option>
+            <option selected>BEESWAX</option>
+            <option selected>ESSENTIAL_OIL</option>
+            <option selected>CANDLE_DYE</option>
+            <option selected>WICK</option>
+            <option selected>LABEL</option>
+            <option selected>STEARIN</option>
+            <option selected>VYBAR</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <label for="ingrediente" class="form-label">Ingrediente</label>
+        </div>
+        <div class="col-4">
+          <input type="number" class="form-control" id="ingrediente" [(ngModel)]="ingredient2.amount"
+            [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-7">
+          <select id="ingrediente" class="form-select" [(ngModel)]="ingredient2.name"
+            [ngModelOptions]="{standalone: true}">
+            <option selected>SOY_WAX</option>
+            <option selected>PARAFFIN_WAX</option>
+            <option selected>BEESWAX</option>
+            <option selected>ESSENTIAL_OIL</option>
+            <option selected>CANDLE_DYE</option>
+            <option selected>WICK</option>
+            <option selected>LABEL</option>
+            <option selected>STEARIN</option>
+            <option selected>VYBAR</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <label for="ingrediente" class="form-label">Ingrediente</label>
+        </div>
+        <div class="col-4">
+          <input type="number" class="form-control" id="ingrediente" [(ngModel)]="ingredient3.amount"
+            [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-7">
+          <select id="ingrediente" class="form-select" [(ngModel)]="ingredient3.name"
+            [ngModelOptions]="{standalone: true}">
+            <option selected>SOY_WAX</option>
+            <option selected>PARAFFIN_WAX</option>
+            <option selected>BEESWAX</option>
+            <option selected>ESSENTIAL_OIL</option>
+            <option selected>CANDLE_DYE</option>
+            <option selected>WICK</option>
+            <option selected>LABEL</option>
+            <option selected>STEARIN</option>
+            <option selected>VYBAR</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <label for="ingrediente" class="form-label">Ingrediente</label>
+        </div>
+        <div class="col-4">
+          <input type="number" class="form-control" id="ingrediente" [(ngModel)]="ingredient4.amount"
+            [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="col-7">
+          <select id="ingrediente" class="form-select" [(ngModel)]="ingredient4.name"
+            [ngModelOptions]="{standalone: true}">
+            <option selected>SOY_WAX</option>
+            <option selected>PARAFFIN_WAX</option>
+            <option selected>BEESWAX</option>
+            <option selected>ESSENTIAL_OIL</option>
+            <option selected>CANDLE_DYE</option>
+            <option selected>WICK</option>
+            <option selected>LABEL</option>
+            <option selected>STEARIN</option>
+            <option selected>VYBAR</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Crear</button>
+    </div>
+  </form>
+</div>

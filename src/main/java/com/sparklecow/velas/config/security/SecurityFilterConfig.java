@@ -26,6 +26,8 @@ public class SecurityFilterConfig {
         return httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST,"/api/v1/candle").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/candle/{id}").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/candle/{id}").hasAuthority("ADMIN")
                         .anyRequest().permitAll())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -12,6 +12,8 @@ import { RegisterComponent } from './register/register.component';
 import { ProductComponent } from './product/product.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CarritoComponent } from './carrito/carrito.component';
+import { CandleFormComponent } from './candle-form/candle-form.component';
+import { ActivateAccountComponent } from './activate-account/activate-account.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { CarritoComponent } from './carrito/carrito.component';
     LoginComponent,
     RegisterComponent,
     ProductComponent,
-    CarritoComponent
+    CarritoComponent,
+    CandleFormComponent,
+    ActivateAccountComponent
   ],
   imports: [
     BrowserModule,

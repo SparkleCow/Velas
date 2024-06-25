@@ -35,14 +35,22 @@ public class UserServiceImp implements UserService {
     @Value("${application.mailing.frontend.activation-url}")
     private String activationUrl;
 
+
+    @Override
+    public String extractUsername(String token){
+        return jwtUtils.extractUsername(token);
+    }
+
+    @Override
+    public boolean validateAdminRole(String token){
+        User user = (User) userDetailsService.loadUserByUsername(jwtUtils.extractUsername(token));
+        return user.getRoles().stream().anyMatch(role -> role.name().equals("ADMIN"));
+    }
+
     @Override
     public boolean validate(String token){
         User user = (User) userDetailsService.loadUserByUsername(jwtUtils.extractUsername(token));
         return jwtUtils.validateToken(token, user);
-    }
-
-    public String extractUsername(String token){
-        return jwtUtils.extractUsername(token);
     }
 
     @Override

@@ -24,12 +24,12 @@ public class AuthController {
 
     private final UserServiceImp userService;
 
+    /*Validate token and roles*/
     @GetMapping("/validate")
     public ResponseEntity<?> validateToken(@RequestHeader("Authorization") String token) throws ExpiredJwtException{
+        String tokenValue = token.startsWith("Bearer ") ? token.substring(7) : token;
         try {
-            String tokenValue = token.startsWith("Bearer ") ? token.substring(7) : token;
-            boolean isValid = userService.validate(tokenValue);
-            return ResponseEntity.ok(isValid);
+            return ResponseEntity.ok(userService.validate(tokenValue));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token");
         }
@@ -37,11 +37,9 @@ public class AuthController {
 
     @GetMapping("/validate/username")
     public ResponseEntity<Map<String, String>> validateTokenWithUsername(@RequestHeader("Authorization") String token) throws ExpiredJwtException {
+        String tokenValue = token.startsWith("Bearer ") ? token.substring(7) : token;
         try {
-            String tokenValue = token.startsWith("Bearer ") ? token.substring(7) : token;
-            boolean isValid = userService.validate(tokenValue);
-            System.out.println(isValid);
-            if (isValid) {
+            if(userService.validate(tokenValue)){
                 String username = userService.extractUsername(tokenValue);
                 Map<String, String> response = new HashMap<>();
                 response.put("username", username);
@@ -57,6 +55,22 @@ public class AuthController {
         }
     }
 
+    @GetMapping("/validate/role")
+    public ResponseEntity<Void> validateTokenWithRole(@RequestHeader("Authorization") String token) throws ExpiredJwtException {
+        String tokenValue = token.startsWith("Bearer ") ? token.substring(7) : token;
+        try {
+            if(userService.validate(tokenValue)){
+                if(userService.validateAdminRole(tokenValue)){
+                    return ResponseEntity.ok().build();
+                }
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            }
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
     @PostMapping()
     public ResponseEntity<?> register(@RequestBody @Valid UserRegisterDto userRegisterDto) throws MessagingException {
         userService.create(userRegisterDto);
@@ -68,7 +82,7 @@ public class AuthController {
         return ResponseEntity.ok(userService.authenticate(userLoginDto));
     }
 
-    @PostMapping("/activate-account")
+    @PostMapping("/activate")
     public ResponseEntity<?> activateAccount(@RequestParam String token) throws MessagingException {
         userService.activateAccount(token);
         return ResponseEntity.ok().build();

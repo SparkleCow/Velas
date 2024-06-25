@@ -24,6 +24,7 @@ public class CandleController {
 
     private final CandleService candleService;
 
+    //Required an ADMIN role
     @PostMapping()
     public ResponseEntity<CandleResponseDto> createCandle(@RequestBody @Valid CandleRequestDto candleRequestDto){
         CandleResponseDto candleResponseDto = candleService.create(candleRequestDto);
@@ -32,28 +33,30 @@ public class CandleController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<CandleResponseDto>> findAll(){
+    public ResponseEntity<List<CandleResponseDto>> findAllCandles(){
         return ResponseEntity.ok(candleService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CandleResponseDto> findById(@PathVariable Long id) throws NotFoundException{
+    public ResponseEntity<CandleResponseDto> findCandleById(@PathVariable Long id) throws NotFoundException{
         return ResponseEntity.ok(candleService.findById(id));
     }
 
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<CandleResponseDto>> findByCategory(@PathVariable String category){
+    public ResponseEntity<List<CandleResponseDto>> findCandleByCategory(@PathVariable String category){
         return ResponseEntity.ok(candleService.findByCategory(Category.valueOf(category)));
     }
 
+    //Required an ADMIN role
     @PutMapping("/{id}")
-    public ResponseEntity<CandleResponseDto> update(@PathVariable Long id,
+    public ResponseEntity<CandleResponseDto> updateCandle(@PathVariable Long id,
                                                     @RequestBody CandleUpdateDto candleUpdateDto) throws NotFoundException {
         return ResponseEntity.ok(candleService.update(candleUpdateDto,id));
     }
 
+    //Required an ADMIN role
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) throws NotFoundException {
+    public ResponseEntity<?> deleteCandle(@PathVariable Long id) throws NotFoundException {
         candleService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
