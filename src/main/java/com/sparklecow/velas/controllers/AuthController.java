@@ -1,10 +1,7 @@
 package com.sparklecow.velas.controllers;
 
 import com.sparklecow.velas.entities.user.*;
-import com.sparklecow.velas.exceptions.AdminRoleNotFoundException;
-import com.sparklecow.velas.exceptions.ExpiredTokenException;
-import com.sparklecow.velas.exceptions.InvalidTokenException;
-import com.sparklecow.velas.exceptions.ActivationTokenException;
+import com.sparklecow.velas.exceptions.*;
 import com.sparklecow.velas.services.user.UserServiceImp;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -94,17 +91,17 @@ public class AuthController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findById(@PathVariable Long id){
+    public ResponseEntity<User> findById(@PathVariable Long id) throws UserNotFoundException {
         return ResponseEntity.ok(userService.findById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody UserUpdateDto userUpdateDto){
+    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody UserUpdateDto userUpdateDto) throws UserNotFoundException {
         return ResponseEntity.ok(userService.update(userUpdateDto,id));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public ResponseEntity<?> delete(@PathVariable Long id) throws UserNotFoundException {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();
     }

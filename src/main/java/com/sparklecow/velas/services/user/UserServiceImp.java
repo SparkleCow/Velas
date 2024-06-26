@@ -2,10 +2,7 @@ package com.sparklecow.velas.services.user;
 
 import com.sparklecow.velas.config.jwt.JwtUtils;
 import com.sparklecow.velas.entities.user.*;
-import com.sparklecow.velas.exceptions.AdminRoleNotFoundException;
-import com.sparklecow.velas.exceptions.ExpiredTokenException;
-import com.sparklecow.velas.exceptions.InvalidTokenException;
-import com.sparklecow.velas.exceptions.ActivationTokenException;
+import com.sparklecow.velas.exceptions.*;
 import com.sparklecow.velas.repositories.ActivateTokenRepository;
 import com.sparklecow.velas.repositories.UserRepository;
 import com.sparklecow.velas.services.email.EmailService;
@@ -57,7 +54,6 @@ public class UserServiceImp implements UserService {
     @Override
     public boolean validate(String token) throws InvalidTokenException, ExpiredTokenException{
         User user = (User) userDetailsService.loadUserByUsername(jwtUtils.extractUsername(token));
-        System.out.println(user.toString());
         try{
             if (jwtUtils.validateToken(token, user)) {
                 return true;
@@ -136,20 +132,20 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public User findById(Long id) throws UserNotFoundException {
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     @Override
-    public User update(UserUpdateDto userUpdateDto, Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public User update(UserUpdateDto userUpdateDto, Long id) throws UserNotFoundException {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
         user = userMapper.updateUser(userUpdateDto, user);
         return userRepository.save(user);
     }
 
     @Override
-    public void deleteById(Long id) {
-        userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    public void deleteById(Long id) throws UserNotFoundException {
+        userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
         userRepository.deleteById(id);
     }
 }

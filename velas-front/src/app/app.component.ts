@@ -9,8 +9,8 @@ import { HttpClientService } from './http-client.service';
 })
 export class AppComponent implements OnInit{
 
-  public auth:boolean = false;
-  public username:String = "";
+  auth:boolean = false;
+  username:String = "";
   
   constructor(private router:Router, private httpClient:HttpClientService){}
 
@@ -24,15 +24,15 @@ export class AppComponent implements OnInit{
     });
   }
 
-  public login():void{
+  login():void{
     this.router.navigate(["/login"]);
   }
 
-  public register():void{
+  register():void{
     this.router.navigate(["/register"]);
   }
 
-  public carrito() {
+  car() {
     this.httpClient.validateToken().subscribe(
       status => {
         if (status) {
@@ -47,5 +47,12 @@ export class AppComponent implements OnInit{
       }
     );
   }
-  
+
+  information(){
+    this.router.navigate(["/information"]);
+  }
+
+  contact(){
+    this.router.navigate(["/contact"]);
+  }
 }

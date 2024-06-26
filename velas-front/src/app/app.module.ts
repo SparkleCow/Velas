@@ -15,6 +15,7 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { CandleFormComponent } from './candle-form/candle-form.component';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
 import { InformationComponent } from './information/information.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { InformationComponent } from './information/information.component';
     CarritoComponent,
     CandleFormComponent,
     ActivateAccountComponent,
-    InformationComponent
+    InformationComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

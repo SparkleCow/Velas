@@ -8,6 +8,7 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { CandleFormComponent } from './candle-form/candle-form.component';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
 import { InformationComponent } from './information/information.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   { path: '', component: BannerComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'carrito', component: CarritoComponent},
   { path: 'candleForm' , component: CandleFormComponent},
   { path: 'activateAccount', component: ActivateAccountComponent},
-  { path: 'information', component: InformationComponent}
+  { path: 'information', component: InformationComponent},
+  { path: 'contact', component: ContactComponent}
 ];
 
 @NgModule({
