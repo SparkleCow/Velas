@@ -33,7 +33,7 @@ public class EmailService {
         if(emailTemplate==null) {
             template = "confirm-email";
         } else {
-            template = emailTemplate.name();
+            template = emailTemplate.template;
         }
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,

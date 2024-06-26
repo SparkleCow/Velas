@@ -93,7 +93,6 @@ public class UserServiceImp implements UserService {
                 .expiredAt(LocalDateTime.now().plusMinutes(15))
                 .user(user)
                 .build();
-        System.out.print(tokenRepository.save(token));
         return generatedToken;
     }
 
