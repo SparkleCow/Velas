@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/velas
-    username: postgres
-    password: Borman15
+    url: jdbc:postgresql://dpg-cpto1l1u0jms73ec68r0-a.oregon-postgres.render.com/velas
+    username: sparklecow
+    password: JWRkgkVgwFD5p7ipJVXEHDOwnCAtTp9d
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: false

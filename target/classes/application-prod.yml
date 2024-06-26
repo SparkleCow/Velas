@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://dpg-cpto1l1u0jms73ec68r0-a.oregon-postgres.render.com/velas
+    username: sparklecow
+    password: JWRkgkVgwFD5p7ipJVXEHDOwnCAtTp9d
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: false
+    database: POSTGRESQL
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: cjelcazador300@gmail.com
+    password: zciamxtsgvjuegle
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+application:
+  security:
+    jwt:
+      secret_key: 6ed1eb0150e8f8fb285ec976ce500807406933985fbea5086c690eb221e53f5a
+      expiration: 8640000
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activateAccount
