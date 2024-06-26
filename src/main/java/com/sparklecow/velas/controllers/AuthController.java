@@ -105,4 +105,11 @@ public class AuthController {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    //Required an admin role
+    @PostMapping("/admin")
+    public ResponseEntity<?> registerAdmin(@RequestBody @Valid UserRegisterDto userRegisterDto) throws MessagingException {
+        userService.createAdmin(userRegisterDto);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -72,6 +72,13 @@ public class UserServiceImp implements UserService {
         sendValidationEmail(user);
     }
 
+    @Override
+    public void createAdmin(UserRegisterDto userRegisterDto) throws MessagingException {
+        User user = userMapper.toUser(userRegisterDto);
+        user.setRoles(List.of(Role.ADMIN));
+        sendValidationEmail(user);
+    }
+
     public void sendValidationEmail(User user) throws MessagingException {
         String token = generateAndSaveToken(user);
         emailService.sendEmail(user.getEmail(), user.getUsername(), EmailTemplate.ACTIVATE_ACCOUNT,

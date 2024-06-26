@@ -55,4 +55,9 @@ export class AppComponent implements OnInit{
   contact(){
     this.router.navigate(["/contact"]);
   }
+  
+  logout(){
+    localStorage.clear();
+    window.location.reload();
+  }
 }

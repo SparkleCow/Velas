@@ -3,7 +3,8 @@
 </header>
 <div class="container galeria d-flex flex-direction-row flex-wrap justify-content-center">
     @for(candle of candles; track candle.id){
-        <div class="info-vela text-center col-3 mx-5 d-flex flex-direction-column flex-wrap justify-content-center">
+        <div class="info-vela text-center col-xl-4 col-md-5 col-12
+        mx-xl-0 mx-md-3 mx-1 d-flex flex-direction-column flex-wrap justify-content-center">
             <div class="img-vela col-12 my-4">
                 <a (click)="product(candle.id)">
                     <img src="{{candle.principalImage}}" alt="imagen del producto">

@@ -13,6 +13,7 @@ public interface UserService{
     public boolean validateAdminRole(String token) throws AdminRoleNotFoundException;
     public boolean validate(String token);
     public void create(UserRegisterDto userRegisterDto) throws MessagingException;
+    public void createAdmin(UserRegisterDto userRegisterDto) throws MessagingException;
     public List<User> findAll();
     public User findById(Long id) throws UserNotFoundException;
     public User update(UserUpdateDto userUpdateDto, Long id) throws UserNotFoundException;
