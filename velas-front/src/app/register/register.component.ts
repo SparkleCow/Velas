@@ -21,6 +21,7 @@ export class RegisterComponent {
   constructor(private httpClient:HttpClientService, private router:Router){}
 
   enviar() {
+    console.log(this.userRequestDto)
     this.httpClient.register(this.userRequestDto).subscribe(
       () => {
         console.log('Registro exitoso');

@@ -9,7 +9,7 @@ import { Carrito } from './models/carrito';
   providedIn: 'root'
 })
 export class HttpClientService {
-  private url:string = "http://localhost:8080/api/v1";
+  private url:string = "https://velas-candil.onrender.com/api/v1";
 
   constructor(private http:HttpClient) { }
 

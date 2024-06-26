@@ -18,6 +18,7 @@ export class ActivateAccountComponent {
       alert("Cuenta activada con éxito")
       this.router.navigate(["/login"])
     },error => {
+      alert("Token expirado o invalidol.")
       console.log("Token expirado o invalidol. "+error)
     });
   }

@@ -39,7 +39,7 @@ public class SecurityFilterConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/activate").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/admin").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/admin").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/auth").hasAnyAuthority("ADMIN", "WORKER", "MANAGER")
                         .requestMatchers(HttpMethod.GET, "/api/v1/auth/{id}").hasAnyAuthority("ADMIN", "WORKER", "MANAGER")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/auth/{id}").hasAnyAuthority("ADMIN", "WORKER", "MANAGER")
