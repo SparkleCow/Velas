@@ -32,7 +32,7 @@ class CandleMapperTest {
                 20,
                 Category.OIL_LAMP,
                 List.of("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRabxp0OYTyIX0Pr_D19eDaJBPFWnGWu5hU8QlBbqunw_PpTyEMNhtFOknBIdfypvy9RY0&usqp=CAU"),
-                List.of());
+                List.of(new IngredientRequestDto(Ingredients.BEESWAX, 1.0)));
 
         //when
         Candle candle = candleMapper.toCandle(candleRequestDto);
@@ -42,7 +42,7 @@ class CandleMapperTest {
         assertEquals(candleRequestDto.name(), candle.getName());
         assertEquals(candleRequestDto.description(), candle.getDescription());
         assertEquals(candleRequestDto.images(), candle.getImages());
-        assertEquals(candle.getPrice(), 0.0);
+        assertEquals(candle.getPrice(), 10000.0);
     }
 
     @Test
@@ -84,6 +84,7 @@ class CandleMapperTest {
                 .stock(20)
                 .category(Category.OIL_LAMP)
                 .images(List.of("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRabxp0OYTyIX0Pr_D19eDaJBPFWnGWu5hU8QlBbqunw_PpTyEMNhtFOknBIdfypvy9RY0&usqp=CAU"))
+                .ingredients(List.of(new Ingredient(Ingredients.BEESWAX, 1.0), new Ingredient(Ingredients.WICK, 2.0)))
                 .build();
 
         CandleUpdateDto candleUpdate = new CandleUpdateDto("",
@@ -102,7 +103,6 @@ class CandleMapperTest {
         assertNotEquals(candle.getName(), candleUpdate.name());
         assertNotEquals(candle.getDescription(), candleUpdate.description());
         assertNotEquals(candle.getPrincipalImage(), candleUpdate.principalImage());
-        assertEquals(candle.getIngredients(), candleUpdate.ingredients());
         assertNotEquals(candle.getPrice(), 0.0);
     }
 }

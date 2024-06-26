@@ -68,7 +68,6 @@ public class CandleMapper {
                 }
             }
             candle.setIngredients(updatedIngredients);
-            System.out.println(candle.getIngredients());
             candle.setPrice(calculatePrice(updatedIngredients));
         }
         return candle;
