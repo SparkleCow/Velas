@@ -50,6 +50,3 @@ This website allows to show all candles currently in stock, on the other hand, i
 - Module to activate account
   
 ![Captura de pantalla 2024-07-03 132657](https://github.com/SparkleCow/Velas/assets/55297516/d2707d10-46c9-40aa-931a-32b0da473866)
-
-## Entities
-
